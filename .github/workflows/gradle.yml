@@ -29,11 +29,12 @@ jobs:
           ssh-keyscan e.coding.net >> ~/.ssh/known_hosts
           git config --global user.name thisdk
           git config --global user.email thisdk@gmail.com
-          git clone git@e.coding.net:thisdk/ordering-service/ordering-deploy.git
+          mkdir ordering-deploy
           cp ordering.war ordering-deploy/ -f
           cd ordering-deploy
-          git add * && git commit -a -m "Deploy"
-          git push -u origin master
+          git init && git add * && git commit -a -m "Deploy"
+          git remote add origin git@e.coding.net:thisdk/ordering-service/ordering-deploy.git
+          git push -u origin master -f
       - name: Upload to Artifact
         uses: actions/upload-artifact@v2
         with:
