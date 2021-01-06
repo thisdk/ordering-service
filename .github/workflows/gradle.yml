@@ -39,7 +39,7 @@ jobs:
         with:
           name: ordering
           path: ordering.war
-      - name: executing remote ssh commands using password
+      - name: SSH to Host Deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -49,4 +49,3 @@ jobs:
           script: |
             cd /home/ubuntu/war
             ./deploy.sh
-            
