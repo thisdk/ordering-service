@@ -48,5 +48,6 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /home/ubuntu/war
-            ./deploy.sh
+            sleep 5s && cd /home/ubuntu/war
+            curl -O https://thisdk.coding.net/p/ordering-service/d/ordering-deploy/git/raw/master/ordering.war
+            sudo mv ordering.war /opt/tomcat/latest/webapps -f
