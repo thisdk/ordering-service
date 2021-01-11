@@ -1,7 +1,7 @@
 package io.thisdk.github.ordering.controller.program
 
-import io.thisdk.github.ordering.bean.DeleteFoodReq
 import io.thisdk.github.ordering.bean.Food
+import io.thisdk.github.ordering.bean.IdReq
 import io.thisdk.github.ordering.bean.RestRequest
 import io.thisdk.github.ordering.bean.RestResponse
 import io.thisdk.github.ordering.service.FoodService
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/food")
+@RequestMapping("/program/food")
 class FoodController {
 
     @Autowired
@@ -29,8 +29,8 @@ class FoodController {
     }
 
     @RequestMapping("/delete")
-    fun delete(@RequestBody req: RestRequest<DeleteFoodReq>): RestResponse<Unit> {
-        return RestResponse(foodService.deleteFood(req.param.id))
+    fun delete(@RequestBody req: RestRequest<IdReq>): RestResponse<Unit> {
+        return RestResponse(foodService.deleteFood(req.param))
     }
 
 }

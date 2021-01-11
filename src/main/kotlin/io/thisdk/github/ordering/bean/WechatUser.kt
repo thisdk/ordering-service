@@ -5,8 +5,8 @@ import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document(collection = "wechat_user")
-data class User(
-    @Indexed val openid: String,
+data class WechatUser(
+    @Indexed(unique = true) val openid: String,
     val nickName: String,
     val avatarUrl: String,
     val city: String

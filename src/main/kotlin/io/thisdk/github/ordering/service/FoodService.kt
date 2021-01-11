@@ -1,6 +1,7 @@
 package io.thisdk.github.ordering.service
 
 import io.thisdk.github.ordering.bean.Food
+import io.thisdk.github.ordering.bean.IdReq
 import io.thisdk.github.ordering.dao.FoodDao
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -19,8 +20,8 @@ class FoodService {
         return foodDao.insert(food)
     }
 
-    fun deleteFood(id: String) {
-        foodDao.delete(id)
+    fun deleteFood(idReq: IdReq) {
+        foodDao.delete(idReq.id)
     }
 
 }
