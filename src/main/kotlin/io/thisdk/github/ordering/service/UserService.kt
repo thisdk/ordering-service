@@ -1,6 +1,6 @@
 package io.thisdk.github.ordering.service
 
-import io.thisdk.github.ordering.bean.QueryUserReq
+import io.thisdk.github.ordering.bean.OpenIdReq
 import io.thisdk.github.ordering.bean.User
 import io.thisdk.github.ordering.dao.UserDao
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,7 +12,7 @@ class UserService {
     @Autowired
     lateinit var userDao: UserDao
 
-    fun getUserInfo(req: QueryUserReq): User? {
+    fun getUserInfo(req: OpenIdReq): User? {
         return userDao.query(req.openid)
     }
 

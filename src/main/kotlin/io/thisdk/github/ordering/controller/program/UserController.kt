@@ -1,6 +1,6 @@
 package io.thisdk.github.ordering.controller.program
 
-import io.thisdk.github.ordering.bean.QueryUserReq
+import io.thisdk.github.ordering.bean.OpenIdReq
 import io.thisdk.github.ordering.bean.RestRequest
 import io.thisdk.github.ordering.bean.RestResponse
 import io.thisdk.github.ordering.bean.User
@@ -24,7 +24,7 @@ class UserController {
     }
 
     @RequestMapping("/query")
-    fun query(@RequestBody req: RestRequest<QueryUserReq>): RestResponse<User> {
+    fun query(@RequestBody req: RestRequest<OpenIdReq>): RestResponse<User> {
         return RestResponse(data = userService.getUserInfo(req.param))
     }
 
