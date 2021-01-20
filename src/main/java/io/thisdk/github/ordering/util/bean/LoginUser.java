@@ -1,51 +1,30 @@
-package io.thisdk.github.ordering.bean;
+package io.thisdk.github.ordering.util.bean;
 
-/**
- * 登录用户身份权限
- * 
- * @author
- */
-public class LoginUser
-{
-    private static final long serialVersionUID = 1L;
+import io.thisdk.github.ordering.bean.CmsUser;
 
-    /**
-     * 用户唯一标识
-     */
+
+public class LoginUser {
+
     private String token;
 
-    /**
-     * 登录时间
-     */
     private Long loginTime;
 
-    /**
-     * 过期时间
-     */
     private Long expireTime;
 
-
-    /**
-     * 用户信息
-     */
     private CmsUser user;
 
-    public String getToken()
-    {
+    public String getToken() {
         return token;
     }
 
-    public void setToken(String token)
-    {
+    public void setToken(String token) {
         this.token = token;
     }
 
-    public LoginUser()
-    {
+    public LoginUser() {
     }
 
-    public LoginUser(CmsUser user)
-    {
+    public LoginUser(CmsUser user) {
         this.user = user;
     }
 

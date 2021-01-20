@@ -2,10 +2,13 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "io.thisdk.github"
 version = "1.0.0"
+
 java.sourceCompatibility = JavaVersion.VERSION_11
+java.targetCompatibility = JavaVersion.VERSION_11
 
 plugins {
     war
+    java
     id("org.springframework.boot") version "2.4.1"
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
     kotlin("jvm") version "1.4.21"
@@ -26,7 +29,7 @@ dependencies {
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 }
 
-repositories {1
+repositories {
     mavenCentral()
 }
 
