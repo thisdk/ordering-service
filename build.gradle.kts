@@ -20,9 +20,16 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    implementation("cn.hutool:hutool-all:4.5.1")
+    implementation("io.swagger:swagger-models:1.5.22")
+    implementation("io.jsonwebtoken:jjwt:0.6.0")
+    implementation("com.alibaba:fastjson:1.2.70")
+    implementation("org.apache.commons:commons-io:3.7")
+    implementation("eu.bitwalker:UserAgentUtils")
+
 }
 
-repositories {
+repositories {1
     mavenCentral()
 }
 

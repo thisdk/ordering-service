@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 data class CmsUser(
     @Indexed(unique = true) val username: String,
     val password: String,
-    val nickName: String,
+    val nickName: String
 ) {
     @Id
     lateinit var id: String

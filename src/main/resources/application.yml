@@ -7,3 +7,11 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
+# token配置
+token:
+  # 令牌自定义标识
+  header: Authorization
+  # 令牌密钥
+  secret: abcdefghijklmnopqrstuvwxyz
+  # 令牌有效期（默认30分钟）
+  expireTime: 30
