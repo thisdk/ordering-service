@@ -5,12 +5,14 @@ import io.thisdk.github.ordering.bean.RestRequest;
 import io.thisdk.github.ordering.bean.RestResponse;
 import io.thisdk.github.ordering.util.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping("/cms/user")
 public class LoginController {
 
