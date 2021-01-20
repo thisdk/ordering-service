@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 * @version
 */
 @RestController
-@RequestMapping("/cms/login")
+@RequestMapping("/cms/user")
 public class LoginController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
