@@ -16,4 +16,8 @@ class OrderService {
         return orderDao.query(req.openid)
     }
 
+    fun inertOrder(order: Order): Order?{
+        return orderDao.insert(order)
+    }
+
 }

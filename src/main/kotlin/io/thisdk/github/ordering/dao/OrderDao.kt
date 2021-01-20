@@ -6,4 +6,6 @@ interface OrderDao {
 
     fun query(openid: String): List<Order>?
 
+    fun insert(order: Order): Order?
+
 }

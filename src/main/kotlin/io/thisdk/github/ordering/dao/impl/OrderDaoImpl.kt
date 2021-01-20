@@ -20,4 +20,8 @@ class OrderDaoImpl : OrderDao {
         return mongo.find(query, Order::class.java, "wechat_order")
     }
 
+    override fun insert(order: Order): Order? {
+        return mongo.save(order, "wechat_order")
+    }
+
 }

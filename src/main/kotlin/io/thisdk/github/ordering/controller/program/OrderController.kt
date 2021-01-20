@@ -22,4 +22,9 @@ class OrderController {
         return RestResponse(data = orderService.getOrderList(req.param))
     }
 
+    @RequestMapping("/insert")
+    fun insert(@RequestBody req: RestRequest<Order>): RestResponse<Order> {
+        return RestResponse(data = orderService.inertOrder(req.param))
+    }
+
 }
