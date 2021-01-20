@@ -8,18 +8,25 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    @Autowired
+
+    final
     TokenService tokenService;
-    @Autowired
+
+    final
     UserAccountDao userAccountDao;
-    public String login(String username, String password)
-    {
-        CmsUser cmsUser = userAccountDao.getUserInfo(username,password);
-        if(cmsUser != null){
+
+    @Autowired
+    public UserService(TokenService tokenService, UserAccountDao userAccountDao) {
+        this.tokenService = tokenService;
+        this.userAccountDao = userAccountDao;
+    }
+
+    public String login(String username, String password) {
+        CmsUser cmsUser = userAccountDao.getUserInfo(username, password);
+        if (cmsUser != null) {
             LoginUser loginUser = new LoginUser(cmsUser);
-            // 生成token
             return tokenService.createToken(loginUser);
-        }else{
+        } else {
             return "用户名或密码错误";
         }
 
