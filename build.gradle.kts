@@ -26,7 +26,11 @@ dependencies {
     implementation("io.swagger:swagger-models:1.5.22")
     implementation("io.jsonwebtoken:jjwt:0.6.0")
     implementation("eu.bitwalker:UserAgentUtils:1.21")
+    implementation("com.alibaba:fastjson:1.2.70")
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+
+
 }
 
 repositories {

@@ -1,4 +1,4 @@
-package io.thisdk.github.ordering.util.filter;
+package io.thisdk.github.ordering.util.security.filter;
 
 import io.thisdk.github.ordering.util.StringUtils;
 import io.thisdk.github.ordering.util.bean.LoginUser;
@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
+/**
+ * @author jay
+ */
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter
 {
