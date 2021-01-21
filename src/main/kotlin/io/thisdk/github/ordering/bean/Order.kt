@@ -17,14 +17,15 @@ data class Order(
     val orderPrice: Int,
     val amountPrice: Int,
     val refundPrice: Int,
+    val quantity: Int,
     val payType: Int,
     val code: String,
     val list: List<OrderFood>
 ) {
     @Id
     lateinit var id: String
-    @Indexed(unique = true)
+    @Id
     lateinit var orderId: String
-    @Indexed(unique = true)
+    @Indexed
     lateinit var payId: String
 }

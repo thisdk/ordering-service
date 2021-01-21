@@ -33,6 +33,7 @@ class OrderService {
             status = 1,
             orderPrice = cart.total,
             amountPrice = cart.total,
+            quantity = cart.quantity,
             code = "51080",
             list = cart.list.map {
                 val food = foodDao.query(it.foodId)!!
