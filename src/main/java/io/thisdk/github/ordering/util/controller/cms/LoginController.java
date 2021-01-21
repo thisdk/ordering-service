@@ -5,10 +5,7 @@ import io.thisdk.github.ordering.bean.RestRequest;
 import io.thisdk.github.ordering.bean.RestResponse;
 import io.thisdk.github.ordering.util.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -23,7 +20,7 @@ public class LoginController {
         this.service = service;
     }
 
-    @RequestMapping("/login")
+    @PostMapping("/login")
     public RestResponse<String> login(@RequestBody RestRequest<LoginReq> req) {
         return new RestResponse<>(service.login(req.getParam().getUsername(), req.getParam().getPassword()), 0, "OK");
     }
