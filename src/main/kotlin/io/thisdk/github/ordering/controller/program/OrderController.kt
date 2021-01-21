@@ -1,9 +1,6 @@
 package io.thisdk.github.ordering.controller.program
 
-import io.thisdk.github.ordering.bean.OpenIdReq
-import io.thisdk.github.ordering.bean.Order
-import io.thisdk.github.ordering.bean.RestRequest
-import io.thisdk.github.ordering.bean.RestResponse
+import io.thisdk.github.ordering.bean.*
 import io.thisdk.github.ordering.service.OrderService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.RequestBody
@@ -23,7 +20,7 @@ class OrderController {
     }
 
     @RequestMapping("/insert")
-    fun insert(@RequestBody req: RestRequest<Order>): RestResponse<Order> {
+    fun insert(@RequestBody req: RestRequest<CartReq>): RestResponse<Order> {
         return RestResponse(data = orderService.inertOrder(req.param))
     }
 

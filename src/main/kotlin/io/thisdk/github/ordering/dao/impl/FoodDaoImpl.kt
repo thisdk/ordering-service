@@ -29,5 +29,10 @@ class FoodDaoImpl : FoodDao {
         return mongo.find(query, Food::class.java, "wechat_food")
     }
 
+    override fun query(id: String): Food? {
+        val query = Query(Criteria.where("id").`is`(id))
+        return mongo.findOne(query, Food::class.java, "wechat_food")
+    }
+
 
 }

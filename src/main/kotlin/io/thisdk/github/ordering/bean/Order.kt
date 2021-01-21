@@ -19,6 +19,7 @@ data class Order(
     val refundPrice: Int,
     val payType: Int,
     val code: String,
+    val list: List<OrderFood>
 ) {
     @Id
     lateinit var id: String
