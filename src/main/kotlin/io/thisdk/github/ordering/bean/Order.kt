@@ -24,8 +24,7 @@ data class Order(
 ) {
     @Id
     lateinit var id: String
-    @Id
+    @Indexed(unique = true)
     lateinit var orderId: String
-    @Indexed
     lateinit var payId: String
 }

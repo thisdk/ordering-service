@@ -51,6 +51,7 @@ class OrderService {
             remark = "",
             refundPrice = 0
         )
+        order.orderId = "10086${System.currentTimeMillis()}${(Math.random() * 10086).toInt()}"
         return orderDao.insert(order)
     }
 
