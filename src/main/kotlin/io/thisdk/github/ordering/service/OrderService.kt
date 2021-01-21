@@ -52,6 +52,7 @@ class OrderService {
             refundPrice = 0
         )
         order.orderId = "10086${System.currentTimeMillis()}${(Math.random() * 10086).toInt()}"
+        order.payId = "10086${System.currentTimeMillis()}${(Math.random() * 53866).toInt()}"
         return orderDao.insert(order)
     }
 

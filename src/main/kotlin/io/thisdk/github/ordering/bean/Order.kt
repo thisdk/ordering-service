@@ -26,5 +26,6 @@ data class Order(
     lateinit var id: String
     @Indexed(unique = true)
     lateinit var orderId: String
+    @Indexed(unique = true)
     lateinit var payId: String
 }
