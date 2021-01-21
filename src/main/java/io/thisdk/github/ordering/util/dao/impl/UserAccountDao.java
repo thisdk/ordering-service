@@ -17,11 +17,11 @@ public class UserAccountDao {
         this.mongoTemplate = mongoTemplate;
     }
 
-    public CmsUser getUserInfo(String username,String password) {
+    public CmsUser getUserInfo(String username, String password) {
         Query query = new Query();
-        query.addCriteria(Criteria.where(username).is(username));
-        query.addCriteria(Criteria.where(password).is(password));
-        return mongoTemplate.findOne(query,CmsUser.class);
+        query.addCriteria(Criteria.where("username").is(username));
+        query.addCriteria(Criteria.where("password").is(password));
+        return mongoTemplate.findOne(query, CmsUser.class);
     }
 
 }

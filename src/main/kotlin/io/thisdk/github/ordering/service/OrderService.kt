@@ -47,12 +47,14 @@ class OrderService {
             },
             payTime = Date(),
             payType = 0,
-            phone = "",
-            remark = "",
+            phone = cart.phone,
+            remark = cart.remark,
             refundPrice = 0
         )
-        order.orderId = "10086${System.currentTimeMillis()}${(Math.random() * 10086).toInt()}"
-        order.payId = "10086${System.currentTimeMillis()}${(Math.random() * 53866).toInt()}"
+        order.orderId =
+            "10086${(Math.random() * 10086).toInt()}${System.currentTimeMillis()}${(Math.random() * 1008600).toInt()}"
+        order.payId =
+            "53866${(Math.random() * 53866).toInt()}${System.currentTimeMillis()}${(Math.random() * 5386600).toInt()}"
         return orderDao.insert(order)
     }
 
