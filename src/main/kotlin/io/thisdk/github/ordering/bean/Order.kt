@@ -7,8 +7,6 @@ import java.util.*
 
 @Document(collection = "wechat_order")
 data class Order(
-    @Indexed(unique = true) val orderId: String,
-    @Indexed(unique = true) val payId: String,
     val openid: String,
     val nickName: String,
     val phone: String,
@@ -24,4 +22,8 @@ data class Order(
 ) {
     @Id
     lateinit var id: String
+    @Indexed(unique = true)
+    lateinit var orderId: String
+    @Indexed(unique = true)
+    lateinit var payId: String
 }
