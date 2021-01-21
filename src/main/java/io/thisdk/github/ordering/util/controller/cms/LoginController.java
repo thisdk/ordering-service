@@ -25,9 +25,4 @@ public class LoginController {
         return new RestResponse<>(service.login(req.getParam().getUsername(), req.getParam().getPassword()), 0, "OK");
     }
 
-
-    @PostMapping("/JayHu")
-    public RestResponse<String> JayHu(@RequestBody RestRequest<LoginReq> req) {
-        return new RestResponse<>(service.login(req.getParam().getUsername(), req.getParam().getPassword()), 0, "OK");
-    }
 }
