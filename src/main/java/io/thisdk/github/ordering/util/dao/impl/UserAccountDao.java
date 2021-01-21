@@ -21,7 +21,7 @@ public class UserAccountDao {
         Query query = new Query();
         query.addCriteria(Criteria.where("username").is(username));
         query.addCriteria(Criteria.where("password").is(password));
-        return mongoTemplate.findOne(query, CmsUser.class);
+        return mongoTemplate.findOne(query, CmsUser.class, "cms_user");
     }
 
 }
