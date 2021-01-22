@@ -1,8 +1,8 @@
-package io.thisdk.github.ordering.util.service;
+package io.thisdk.github.ordering.service;
 
 import io.thisdk.github.ordering.bean.CmsUser;
-import io.thisdk.github.ordering.util.bean.LoginUser;
-import io.thisdk.github.ordering.util.dao.impl.UserAccountDao;
+import io.thisdk.github.ordering.bean.LoginUser;
+import io.thisdk.github.ordering.dao.impl.UserAccountDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package io.thisdk.github.ordering.util.bean;
+package io.thisdk.github.ordering.bean;
 
 import io.thisdk.github.ordering.bean.CmsUser;
 

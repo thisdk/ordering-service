@@ -1,4 +1,4 @@
-package io.thisdk.github.ordering.util.dao.impl;
+package io.thisdk.github.ordering.dao.impl;
 
 import io.thisdk.github.ordering.bean.CmsUser;
 import org.springframework.beans.factory.annotation.Autowired;

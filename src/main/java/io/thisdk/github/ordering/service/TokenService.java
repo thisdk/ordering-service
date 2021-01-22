@@ -1,15 +1,15 @@
-package io.thisdk.github.ordering.util.service;
+package io.thisdk.github.ordering.service;
 
 
 //import eu.bitwalker.useragentutils.UserAgent;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.thisdk.github.ordering.util.bean.LoginUser;
-import io.thisdk.github.ordering.util.redis.RedisCache;
-import io.thisdk.github.ordering.util.Constants;
-import io.thisdk.github.ordering.util.StringUtils;
-import io.thisdk.github.ordering.util.uuid.IdUtils;
+import io.thisdk.github.ordering.bean.LoginUser;
+import io.thisdk.github.ordering.redis.RedisCache;
+import io.thisdk.github.ordering.utils.Constants;
+import io.thisdk.github.ordering.utils.StringUtils;
+import io.thisdk.github.ordering.uuid.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

@@ -29,6 +29,7 @@ dependencies {
     implementation("com.alibaba:fastjson:1.2.70")
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("redis.clients:jedis:2.9.0")
 
 
 }

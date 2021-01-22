@@ -1,4 +1,4 @@
-package io.thisdk.github.ordering.util;
+package io.thisdk.github.ordering.utils;
 
 import cn.hutool.core.text.StrFormatter;
 

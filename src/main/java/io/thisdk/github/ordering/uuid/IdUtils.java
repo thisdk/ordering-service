@@ -1,4 +1,4 @@
-package io.thisdk.github.ordering.util.uuid;
+package io.thisdk.github.ordering.uuid;
 
 /**
  * ID生成器工具类

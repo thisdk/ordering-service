@@ -1,4 +1,4 @@
-package io.thisdk.github.ordering.util.uuid;
+package io.thisdk.github.ordering.uuid;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

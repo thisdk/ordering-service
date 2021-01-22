@@ -1,8 +1,8 @@
-package io.thisdk.github.ordering.util.security.filter;
+package io.thisdk.github.ordering.security.filter;
 
-import io.thisdk.github.ordering.util.StringUtils;
-import io.thisdk.github.ordering.util.bean.LoginUser;
-import io.thisdk.github.ordering.util.service.TokenService;
+import io.thisdk.github.ordering.utils.StringUtils;
+import io.thisdk.github.ordering.bean.LoginUser;
+import io.thisdk.github.ordering.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
