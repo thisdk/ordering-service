@@ -30,7 +30,10 @@ dependencies {
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("redis.clients:jedis:2.9.0")
-
+    implementation("javax.xml.bind:jaxb-api:2.3.0")
+    implementation("com.sun.xml.bind:jaxb-impl:2.3.0")
+    implementation("com.sun.xml.bind:jaxb-core:2.3.0")
+    implementation("javax.activation:activation:1.1.1")
 
 }
 
