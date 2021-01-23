@@ -23,7 +23,8 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e)
     {
         String msg = StringUtils.format("请求访问：{}，认证失败，无法访问系统资源", request.getRequestURI());
-        StringUtils.renderString(response, msg);
+        //StringUtils.renderString(response, msg);
+        throw new ServiceException().setCode(-10086).setMessage("请求访问：{"+request.getRequestURI()+"}，认证失败，无法访问系统资源");
     }
 
 }
