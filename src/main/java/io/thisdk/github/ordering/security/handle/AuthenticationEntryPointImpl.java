@@ -1,8 +1,10 @@
 package io.thisdk.github.ordering.security.handle;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import io.thisdk.github.ordering.exception.OrderingErrorInfoEnum;
 import io.thisdk.github.ordering.exception.OrderingErrorInfoException;
+import io.thisdk.github.ordering.utils.AjaxResult;
 import io.thisdk.github.ordering.utils.StringUtils;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -17,7 +19,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
-        StringUtils.renderString(response, JSONObject.toJSONString(new OrderingErrorInfoException(OrderingErrorInfoEnum.AUTH_ERROR)));
+        StringUtils.renderString(response, JSON.toJSONString(AjaxResult.error(-10086, "token timeout")));
     }
 
 }
