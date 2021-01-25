@@ -2,7 +2,9 @@ package io.thisdk.github.ordering.service;
 
 import io.thisdk.github.ordering.bean.CmsUser;
 import io.thisdk.github.ordering.bean.LoginUser;
+import io.thisdk.github.ordering.bean.RestResponse;
 import io.thisdk.github.ordering.dao.impl.UserAccountDao;
+import io.thisdk.github.ordering.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +32,10 @@ public class UserService {
             return "用户名或密码错误";
         }
 
+    }
+
+    public CmsUser getCurrentUserInfo() {
+        LoginUser loginUser = tokenService.getLoginUser(StringUtils.getRequest());
+        return loginUser.getUser();
     }
 }
