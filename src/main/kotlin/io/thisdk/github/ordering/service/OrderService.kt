@@ -4,6 +4,8 @@ import io.thisdk.github.ordering.bean.*
 import io.thisdk.github.ordering.dao.FoodDao
 import io.thisdk.github.ordering.dao.OrderDao
 import io.thisdk.github.ordering.dao.WechatUserDao
+import io.thisdk.github.ordering.exception.OrderingErrorInfoEnum
+import io.thisdk.github.ordering.exception.OrderingErrorInfoException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*
@@ -20,12 +22,14 @@ class OrderService {
     @Autowired
     lateinit var foodDao: FoodDao
 
-    fun getOrderList(req: OpenIdReq): List<Order>? {
+    fun getOrderList(req: OpenIdReq): List<Order> {
         return orderDao.query(req.openid)
+            ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.LIST_EMPTY)
     }
 
-    fun inertOrder(cart: CartReq): Order? {
-        val user = userDao.query(cart.openid)!!
+    fun inertOrder(cart: CartReq): Order {
+        val user = userDao.query(cart.openid)
+            ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.USER_NOT_EXIST)
         val order = Order(
             openid = cart.openid,
             nickName = user.nickName,
@@ -56,6 +60,7 @@ class OrderService {
         order.payId =
             "53866${(Math.random() * 53866).toInt()}${System.currentTimeMillis()}${(Math.random() * 5386600).toInt()}"
         return orderDao.insert(order)
+            ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.INSERT_ORDER_ERROR)
     }
 
 }

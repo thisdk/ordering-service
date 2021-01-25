@@ -22,7 +22,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public RestResponse<String> login(@RequestBody RestRequest<LoginReq> req) {
-        return new RestResponse<>(service.login(req.getParam().getUsername(), req.getParam().getPassword()), 0, "OK");
+        return new RestResponse<>(service.login(req.getParam().getUsername(), req.getParam().getPassword()));
     }
 
 }
