@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 
-
-
 @Service
 class OrderService {
 
@@ -35,7 +33,7 @@ class OrderService {
         val calendar = Calendar.getInstance()
         calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH], 0, 0] = 0
         val todayOrderList = orderDao.queryOrderByDate(calendar.time)
-        val code = 1111 + (Math.random() * 9).toInt() + 1 + todayOrderList.size * 10
+        val code = 1111 + ((Math.random() * 4).toInt() + 1) + (todayOrderList.size * 5)
         val order = Order(
             openid = cart.openid,
             nickName = user.nickName,
