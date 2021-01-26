@@ -40,14 +40,3 @@ jobs:
         with:
           name: ordering
           path: ordering.war
-      - name: SSH to Host Deploy
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          script: |
-            sleep 5s && cd /home/ubuntu/deploy
-            curl -O https://thisdk.coding.net/p/ordering-service/d/ordering-deploy/git/raw/master/ordering.war
-            sudo mv ordering.war /opt/tomcat/latest/webapps -f
