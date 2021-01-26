@@ -34,7 +34,6 @@ dependencies {
     implementation("com.sun.xml.bind:jaxb-impl:2.3.0")
     implementation("com.sun.xml.bind:jaxb-core:2.3.0")
     implementation("javax.activation:activation:1.1.1")
-    implementation("io.springfox:springfox-swagger2:2.9.2")
 
 }
 
