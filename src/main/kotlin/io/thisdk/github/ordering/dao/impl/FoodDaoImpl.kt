@@ -24,7 +24,7 @@ class FoodDaoImpl : FoodDao {
         mongo.remove(query, Food::class.java, "wechat_food")
     }
 
-    override fun query(): List<Food>? {
+    override fun query(): List<Food> {
         val query = Query()
         return mongo.find(query, Food::class.java, "wechat_food")
     }

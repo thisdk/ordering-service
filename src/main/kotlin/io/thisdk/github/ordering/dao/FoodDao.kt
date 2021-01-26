@@ -8,7 +8,7 @@ interface FoodDao {
 
     fun delete(id: String)
 
-    fun query(): List<Food>?
+    fun query(): List<Food>
 
     fun query(id:String): Food?
 

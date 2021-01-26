@@ -16,7 +16,6 @@ class FoodService {
 
     fun getFoodList(): List<Food> {
         return foodDao.query()
-            ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.LIST_EMPTY)
     }
 
     fun insertFood(food: Food): Food {

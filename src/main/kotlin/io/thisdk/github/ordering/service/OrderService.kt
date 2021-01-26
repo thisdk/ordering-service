@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*
 
+
+
+
 @Service
 class OrderService {
 
@@ -24,12 +27,15 @@ class OrderService {
 
     fun getOrderList(req: OpenIdReq): List<Order> {
         return orderDao.query(req.openid)
-            ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.LIST_EMPTY)
     }
 
     fun inertOrder(cart: CartReq): Order {
         val user = userDao.query(cart.openid)
             ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.USER_NOT_EXIST)
+        val calendar = Calendar.getInstance()
+        calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH], 0, 0] = 0
+        val todayOrderList = orderDao.queryOrderByDate(calendar.time)
+        val code = 1111 + (Math.random() * 9).toInt() + 1 + todayOrderList.size
         val order = Order(
             openid = cart.openid,
             nickName = user.nickName,
@@ -38,7 +44,7 @@ class OrderService {
             orderPrice = cart.total,
             amountPrice = cart.total,
             quantity = cart.quantity,
-            code = "51080",
+            code = String.format("%04d", code),
             list = cart.list.map {
                 val food = foodDao.query(it.foodId)!!
                 return@map OrderFood(
