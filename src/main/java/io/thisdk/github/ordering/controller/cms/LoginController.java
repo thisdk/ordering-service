@@ -31,7 +31,7 @@ public class LoginController {
      * 获取当前登录用户账号信息
      * @return
      */
-    @RequestMapping(value = "/getCurrentUser",method = RequestMethod.GET)
+    @RequestMapping(value = "/getCurrentUser",method = RequestMethod.POST)
     public RestResponse<CmsUser> getCurrentUser() {
         return new RestResponse<>(service.getCurrentUserInfo());
     }
