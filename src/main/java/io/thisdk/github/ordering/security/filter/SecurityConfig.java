@@ -75,11 +75,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
      * authenticated       |   用户登录后可访问
      */
     @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception
-    {
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 // CSRF禁用，因为不使用sessionc
                 .csrf().disable()
+                // 添加JWT filter
+                .addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 // 认证失败处理类
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 // 基于token，所以不需要session
@@ -98,8 +99,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .anyRequest().authenticated()
                 .and()
                 .headers().frameOptions().disable();
-        // 添加JWT filter
-        httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+
         // 添加CORS filter
         /*httpSecurity.addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class);
         httpSecurity.addFilterBefore(corsFilter, LogoutFilter.class);*/
