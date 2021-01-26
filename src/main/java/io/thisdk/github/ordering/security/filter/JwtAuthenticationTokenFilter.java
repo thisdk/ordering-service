@@ -1,5 +1,6 @@
 package io.thisdk.github.ordering.security.filter;
 
+import com.alibaba.fastjson.JSONObject;
 import io.thisdk.github.ordering.utils.StringUtils;
 import io.thisdk.github.ordering.bean.LoginUser;
 import io.thisdk.github.ordering.service.TokenService;
@@ -31,8 +32,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter{
             throws ServletException, IOException
     {
         LoginUser loginUser = tokenService.getLoginUser(request);
-        if (StringUtils.isNotEmpty(loginUser))
-        {
+        System.out.println("this is User===========>>>>>>>"+ JSONObject.toJSONString(loginUser));
+        if (StringUtils.isNotEmpty(loginUser)){
             tokenService.verifyToken(loginUser);
         }
         chain.doFilter(request, response);
