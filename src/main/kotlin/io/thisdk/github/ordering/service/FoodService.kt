@@ -23,6 +23,12 @@ class FoodService {
             ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.INSERT_FOOD_ERROR)
     }
 
+    fun insertList(list: List<Food>) {
+        list.forEach {
+            foodDao.insert(it)
+        }
+    }
+
     fun deleteFood(idReq: IdReq) {
         foodDao.delete(idReq.id)
     }
