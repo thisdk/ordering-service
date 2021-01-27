@@ -22,7 +22,7 @@ enum class OrderingErrorInfoEnum(
     TAKE_MEAL_ERROR(-3001,"取餐出现异常"),
     TAKE_MEAL_STATUS_ERROR(-3003,"该订单无法再取餐"),
 
-    AUTH_ERROR(-10086, "token timeout"),
+    AUTH_ERROR(-10086, "unAuthorization"),
     ;
 
     override fun getErrorCode(): Int = code
