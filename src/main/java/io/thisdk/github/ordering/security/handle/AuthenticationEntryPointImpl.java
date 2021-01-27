@@ -16,7 +16,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
-        StringUtils.renderString(response, JSON.toJSONString(AjaxResult.error(-10086, "token timeout")));
+        StringUtils.renderString(response, JSON.toJSONString(AjaxResult.error(-10086, "unAuthorization")));
     }
 
 }
