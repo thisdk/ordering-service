@@ -5,6 +5,7 @@ import io.thisdk.github.ordering.bean.IdReq
 import io.thisdk.github.ordering.bean.RestRequest
 import io.thisdk.github.ordering.bean.RestResponse
 import io.thisdk.github.ordering.service.FoodService
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/program/food")
 class FoodController {
+
+    private val logger = LoggerFactory.getLogger(this.javaClass)
 
     @Autowired
     lateinit var foodService: FoodService

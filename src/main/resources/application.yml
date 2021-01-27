@@ -11,6 +11,7 @@ spring:
 logging:
   file:
     name: ordering.log
+    path: /usr/local/tomcat/logs
   level:
     root: info
 
