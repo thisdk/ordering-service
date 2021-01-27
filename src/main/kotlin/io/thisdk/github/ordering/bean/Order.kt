@@ -31,5 +31,5 @@ data class Order(
     @Indexed(unique = true)
     lateinit var payId: String
 
-    lateinit var takeMealTime: Date
+    var takeMealTime: Date? = null
 }
