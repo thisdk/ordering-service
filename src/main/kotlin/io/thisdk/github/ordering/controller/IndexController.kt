@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class IndexController {
 
-    @RequestMapping("/")
+    @RequestMapping("/index")
     fun index(): RestResponse<String> {
         return RestResponse("Hello Spring Boot, The Service Use Github Action Auto Deploy!")
     }

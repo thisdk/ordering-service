@@ -4,13 +4,15 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 
-@Document(collection = "wechat_user")
-data class WechatUser(
-    @Indexed(unique = true) val openid: String,
-    val nickName: String,
-    val avatarUrl: String,
-    val city: String
+@Document(collection = "user")
+data class User(
+    @Indexed(unique = true) val username: String,
+    var password: String,
 ) {
     @Id
     lateinit var id: String
+    var openid: String? = null
+    var nickname: String? = null
+    var avatar: String? = null
+    var city: String? = null
 }

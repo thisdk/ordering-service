@@ -8,7 +8,9 @@ enum class OrderingErrorInfoEnum(
     SUCCESS(0, "OK"),
     ERROR(1, "服务器异常"),
 
-    LOGIN_ERROR(500,"用户名或密码错误"),
+    LOGIN_ERROR(500,"验证用户名或密码失败"),
+    NOT_USER(501,"没有该用户"),
+    CREATE_USER_ERROR(501,"没有该用户"),
 
     PARAM_ERROR(-1000, "请求参数错误"),
     DATA_NULL(-1001, "返回对象为空"),

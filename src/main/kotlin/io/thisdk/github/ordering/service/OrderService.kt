@@ -3,7 +3,7 @@ package io.thisdk.github.ordering.service
 import io.thisdk.github.ordering.bean.*
 import io.thisdk.github.ordering.dao.FoodDao
 import io.thisdk.github.ordering.dao.OrderDao
-import io.thisdk.github.ordering.dao.WechatUserDao
+import io.thisdk.github.ordering.dao.UserDao
 import io.thisdk.github.ordering.exception.OrderingErrorInfoEnum
 import io.thisdk.github.ordering.exception.OrderingErrorInfoException
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,7 +18,7 @@ class OrderService {
     lateinit var orderDao: OrderDao
 
     @Autowired
-    lateinit var userDao: WechatUserDao
+    lateinit var userDao: UserDao
 
     @Autowired
     lateinit var foodDao: FoodDao
@@ -51,7 +51,7 @@ class OrderService {
         val code = 1111 + ((Math.random() * 4).toInt() + 1) + (todayOrderList.size * 5)
         val order = Order(
             openid = cart.openid,
-            nickName = user.nickName,
+            nickName = user.nickname ?: "",
             createTime = Date(),
             status = 1,
             orderPrice = cart.total,

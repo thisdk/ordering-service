@@ -24,14 +24,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
-    implementation("redis.clients:jedis:2.9.0")
+    implementation("io.jsonwebtoken:jjwt:0.9.1")
     implementation("javax.xml.bind:jaxb-api:2.3.0")
-    implementation("com.sun.xml.bind:jaxb-impl:2.3.0")
-    implementation("com.sun.xml.bind:jaxb-core:2.3.0")
-    implementation("javax.activation:activation:1.1.1")
-    implementation("cn.hutool:hutool-all:4.5.1")
-    implementation("io.jsonwebtoken:jjwt:0.6.0")
-    implementation("com.alibaba:fastjson:1.2.70")
 }
 
 repositories {
