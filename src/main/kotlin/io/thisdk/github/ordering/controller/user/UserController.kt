@@ -28,11 +28,16 @@ class UserController {
 
     @RequestMapping("/query")
     fun login(@RequestBody req: RestRequest<Unit>): RestResponse<User> {
-        val servletRequestAttributes = RequestContextHolder.getRequestAttributes() as ServletRequestAttributes?
-        val request = servletRequestAttributes!!.request
+        val servletRequestAttributes = RequestContextHolder.getRequestAttributes() as ServletRequestAttributes
+        val request = servletRequestAttributes.request
         val token = AuthUtils.parseJwt(request) ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.ERROR)
         val username = jwtUtils.getUserNameFromJwtToken(token)
         return RestResponse(userService.queryByUserName(username))
+    }
+
+    @RequestMapping("/update")
+    fun update(@RequestBody req: RestRequest<User>): RestResponse<User> {
+        return RestResponse(userService.insertUser(req.param))
     }
 
 }
