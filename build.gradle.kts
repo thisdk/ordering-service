@@ -19,22 +19,20 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-logging")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("cn.hutool:hutool-all:4.5.1")
-    implementation("io.swagger:swagger-models:1.5.22")
-    implementation("io.jsonwebtoken:jjwt:0.6.0")
-    implementation("eu.bitwalker:UserAgentUtils:1.21")
-    implementation("com.alibaba:fastjson:1.2.70")
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
-    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("redis.clients:jedis:2.9.0")
     implementation("javax.xml.bind:jaxb-api:2.3.0")
     implementation("com.sun.xml.bind:jaxb-impl:2.3.0")
     implementation("com.sun.xml.bind:jaxb-core:2.3.0")
     implementation("javax.activation:activation:1.1.1")
-
+    implementation("cn.hutool:hutool-all:4.5.1")
+    implementation("io.jsonwebtoken:jjwt:0.6.0")
+    implementation("com.alibaba:fastjson:1.2.70")
 }
 
 repositories {

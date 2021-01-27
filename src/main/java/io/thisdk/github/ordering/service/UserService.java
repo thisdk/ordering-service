@@ -2,8 +2,9 @@ package io.thisdk.github.ordering.service;
 
 import io.thisdk.github.ordering.bean.CmsUser;
 import io.thisdk.github.ordering.bean.LoginUser;
-import io.thisdk.github.ordering.bean.RestResponse;
 import io.thisdk.github.ordering.dao.impl.UserAccountDao;
+import io.thisdk.github.ordering.exception.OrderingErrorInfoEnum;
+import io.thisdk.github.ordering.exception.OrderingErrorInfoException;
 import io.thisdk.github.ordering.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,7 @@ public class UserService {
         if (cmsUser != null) {
             LoginUser loginUser = new LoginUser(cmsUser);
             return tokenService.createToken(loginUser);
-        } else {
-            return "用户名或密码错误";
-        }
+        } else throw new OrderingErrorInfoException(OrderingErrorInfoEnum.LOGIN_ERROR);
 
     }
 

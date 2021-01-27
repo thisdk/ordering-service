@@ -251,7 +251,6 @@ public class RedisCache {
      */
     public String generateNumber(String key, String name) {
         Long count = redisTemplate.opsForValue().increment(key, 1); // 设置递增因子
-        System.out.println("递增的值" + count);
         return name + count;
     }
 }
