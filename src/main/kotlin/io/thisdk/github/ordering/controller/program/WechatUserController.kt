@@ -6,7 +6,6 @@ import io.thisdk.github.ordering.bean.RestResponse
 import io.thisdk.github.ordering.bean.WechatUser
 import io.thisdk.github.ordering.service.WechatUserService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -18,7 +17,7 @@ class WechatUserController {
     @Autowired
     lateinit var wechatUserService: WechatUserService
 
-    @PostMapping("/insert")
+    @RequestMapping("/insert")
     fun insert(@RequestBody req: RestRequest<WechatUser>): RestResponse<WechatUser> {
         return RestResponse(data = wechatUserService.insertUser(req.param))
     }
