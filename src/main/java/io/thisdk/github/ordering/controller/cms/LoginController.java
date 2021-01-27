@@ -20,12 +20,12 @@ public class LoginController {
         this.service = service;
     }
 
-    @RequestMapping("/login")
+    @PostMapping("/login")
     public RestResponse<String> login(@RequestBody RestRequest<LoginReq> req) {
         return new RestResponse<>(service.login(req.getParam().getUsername(), req.getParam().getPassword()));
     }
 
-    @RequestMapping("/getCurrentUser")
+    @PostMapping("/getCurrentUser")
     public RestResponse<CmsUser> getCurrentUser(@RequestBody RestRequest<Void> req) {
         return new RestResponse<>(service.getCurrentUserInfo());
     }
