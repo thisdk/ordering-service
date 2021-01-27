@@ -36,8 +36,10 @@ class OrderService {
         calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH], 0, 0] = 0
         val order = orderDao.queryOrderByDateAndCode(calendar.time, code)
             ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.TAKE_MEAL_NOT_ORDER)
+        if (order.status != 1) throw OrderingErrorInfoException(OrderingErrorInfoEnum.TAKE_MEAL_STATUS_ERROR)
         order.status = 2
-        return orderDao.update(order) ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.TAKE_MEAL_ORDER)
+        order.takeMealTime = Date()
+        return orderDao.update(order) ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.TAKE_MEAL_ERROR)
     }
 
     fun inertOrder(cart: CartReq): Order {

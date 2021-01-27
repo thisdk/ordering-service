@@ -24,8 +24,12 @@ data class Order(
 ) {
     @Id
     lateinit var id: String
+
     @Indexed(unique = true)
     lateinit var orderId: String
+
     @Indexed(unique = true)
     lateinit var payId: String
+
+    lateinit var takeMealTime: Date
 }

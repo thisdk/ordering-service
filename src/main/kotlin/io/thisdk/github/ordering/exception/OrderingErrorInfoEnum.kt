@@ -16,7 +16,8 @@ enum class OrderingErrorInfoEnum(
     INSERT_FOOD_ERROR(-2002, "创建餐品失败"),
 
     TAKE_MEAL_NOT_ORDER(-3000,"查询不到该订单"),
-    TAKE_MEAL_ORDER(-3001,"取餐出现异常"),
+    TAKE_MEAL_ERROR(-3001,"取餐出现异常"),
+    TAKE_MEAL_STATUS_ERROR(-3003,"该订单无法再取餐"),
 
     AUTH_ERROR(-10086, "token timeout"),
     ;
