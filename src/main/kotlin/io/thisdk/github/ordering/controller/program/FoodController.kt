@@ -23,6 +23,11 @@ class FoodController {
         return RestResponse(foodService.insertFood(req.param))
     }
 
+    @PostMapping("/update")
+    fun update(@RequestBody req: RestRequest<Food>): RestResponse<Food> {
+        return RestResponse(foodService.insertFood(req.param))
+    }
+
     @PostMapping("/insertList")
     fun insertList(@RequestBody req: RestRequest<List<Food>>): RestResponse<Unit> {
         return RestResponse(foodService.insertList(req.param))

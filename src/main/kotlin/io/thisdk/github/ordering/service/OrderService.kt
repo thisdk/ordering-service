@@ -27,6 +27,19 @@ class OrderService {
         return orderDao.query(req.openid)
     }
 
+    fun deleteOrder(orderId: String) {
+        orderDao.delete(orderId)
+    }
+
+    fun takeMeal(code: String): Order {
+        val calendar = Calendar.getInstance()
+        calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH], 0, 0] = 0
+        val order = orderDao.queryOrderByDateAndCode(calendar.time, code)
+            ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.TAKE_MEAL_NOT_ORDER)
+        order.status = 2
+        return orderDao.update(order) ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.TAKE_MEAL_ORDER)
+    }
+
     fun inertOrder(cart: CartReq): Order {
         val user = userDao.query(cart.openid)
             ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.USER_NOT_EXIST)

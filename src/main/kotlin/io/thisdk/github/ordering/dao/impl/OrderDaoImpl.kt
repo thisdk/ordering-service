@@ -30,4 +30,20 @@ class OrderDaoImpl : OrderDao {
         return mongo.save(order, "wechat_order")
     }
 
+    override fun delete(orderId: String) {
+        val query = Query(Criteria.where("orderId").`is`(orderId))
+        mongo.remove(query, Order::class.java, "wechat_order")
+    }
+
+    override fun update(order: Order): Order? {
+        return mongo.save(order, "wechat_order")
+    }
+
+    override fun queryOrderByDateAndCode(date: Date, code: String): Order? {
+        val query = Query()
+        query.addCriteria(Criteria.where("createTime").gte(date))
+        query.addCriteria(Criteria.where("code").`is`(code))
+        return mongo.findOne(query, Order::class.java, "wechat_order")
+    }
+
 }

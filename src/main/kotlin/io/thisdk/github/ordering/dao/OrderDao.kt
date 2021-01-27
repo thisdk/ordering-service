@@ -11,4 +11,10 @@ interface OrderDao {
 
     fun insert(order: Order): Order?
 
+    fun delete(orderId: String)
+
+    fun update(order: Order): Order?
+
+    fun queryOrderByDateAndCode(date: Date, code: String): Order?
+
 }

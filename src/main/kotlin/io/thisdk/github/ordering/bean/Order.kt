@@ -13,7 +13,7 @@ data class Order(
     val remark: String,
     val createTime: Date,
     val payTime: Date,
-    val status: Int,
+    var status: Int,
     val orderPrice: Int,
     val amountPrice: Int,
     val refundPrice: Int,

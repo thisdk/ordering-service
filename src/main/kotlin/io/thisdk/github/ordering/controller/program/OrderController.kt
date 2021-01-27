@@ -24,4 +24,14 @@ class OrderController {
         return RestResponse(data = orderService.inertOrder(req.param))
     }
 
+    @RequestMapping("/delete")
+    fun delete(@RequestBody req: RestRequest<OrderIdReq>): RestResponse<Unit> {
+        return RestResponse(data = orderService.deleteOrder(req.param.orderId))
+    }
+
+    @RequestMapping("/takeMeal")
+    fun takeMeal(@RequestBody req: RestRequest<CodeReq>): RestResponse<Order> {
+        return RestResponse(data = orderService.takeMeal(req.param.code))
+    }
+
 }
