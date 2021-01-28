@@ -30,7 +30,7 @@ class UserDaoImpl : UserDao {
     }
 
     override fun queryByMiniProgram(): List<User> {
-        val query = Query(Criteria.where("openid").exists(true))
+        val query = Query(Criteria.where("openid").ne(null))
         return mongo.find(query, User::class.java, "user")
     }
 

@@ -19,7 +19,7 @@ class RedisConfig : CachingConfigurerSupport() {
     @Bean
     fun redisCacheManager(redisConnectionFactory: RedisConnectionFactory): RedisCacheManager {
         val redisCacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory)
-        val redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(1))
+        val redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofSeconds(30))
         return RedisCacheManager(redisCacheWriter, redisCacheConfiguration)
     }
 

@@ -56,7 +56,7 @@ class OrderService {
         val user = userDao.query(cart.openid)
             ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.USER_NOT_EXIST)
         val todayOrderList = queryTodayOrder()
-        val code = 1111 + ((Math.random() * 4).toInt() + 1) + (todayOrderList.size * 5)
+        val code = 1111 + (Math.random() * 4).toInt() + (todayOrderList.size * 5)
         val order = Order(
             openid = cart.openid,
             nickName = user.nickname ?: "",
