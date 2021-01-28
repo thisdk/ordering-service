@@ -3,11 +3,13 @@ package io.thisdk.github.ordering.controller.program
 import io.thisdk.github.ordering.bean.*
 import io.thisdk.github.ordering.service.OrderService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
+@CrossOrigin
 @RequestMapping("/program/order")
 class OrderController {
 
