@@ -1,56 +1,55 @@
-package io.thisdk.github.ordering.security.jwt;
+package io.thisdk.github.ordering.jwt
 
-import io.jsonwebtoken.*;
-import io.thisdk.github.ordering.security.services.UserDetailsImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Component;
+import io.jsonwebtoken.*
+import io.thisdk.github.ordering.security.UserDetailsImpl
+import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.security.core.Authentication
+import org.springframework.stereotype.Component
+import java.util.*
 
-import java.util.Date;
 
 @Component
-public class JwtUtils {
+class JwtUtils {
 
-    private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
+    companion object {
+        private val logger = LoggerFactory.getLogger(JwtUtils::class.java)
+    }
 
-    @Value("${token.cms.jwtSecret}")
-    private String jwtSecret;
+    @Value("\${token.cms.jwtSecret}")
+    private val jwtSecret: String? = null
 
-    @Value("${token.cms.jwtExpirationMs}")
-    private int jwtExpirationMs;
+    @Value("\${token.cms.jwtExpirationMs}")
 
-    public String generateJwtToken(Authentication authentication) {
-
-        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
-
+    private val jwtExpirationMs = 0
+    fun generateJwtToken(authentication: Authentication): String {
+        val userPrincipal: UserDetailsImpl = authentication.principal as UserDetailsImpl
         return Jwts.builder()
-                .setSubject((userPrincipal.getUsername()))
-                .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
-                .compact();
+            .setSubject(userPrincipal.username)
+            .setIssuedAt(Date())
+            .setExpiration(Date(Date().time + jwtExpirationMs))
+            .signWith(SignatureAlgorithm.HS512, jwtSecret)
+            .compact()
     }
 
-    public String getUserNameFromJwtToken(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+    fun getUserNameFromJwtToken(token: String?): String {
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).body.subject
     }
 
-    public boolean validateJwtToken(String authToken) {
+    fun validateJwtToken(authToken: String?): Boolean {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
-            return true;
-        } catch (MalformedJwtException e) {
-            logger.error("Invalid JWT token: {}", e.getMessage());
-        } catch (ExpiredJwtException e) {
-            logger.error("JWT token is expired: {}", e.getMessage());
-        } catch (UnsupportedJwtException e) {
-            logger.error("JWT token is unsupported: {}", e.getMessage());
-        } catch (IllegalArgumentException e) {
-            logger.error("JWT claims string is empty: {}", e.getMessage());
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken)
+            return true
+        } catch (e: MalformedJwtException) {
+            logger.error("Invalid JWT token: {}", e.message)
+        } catch (e: ExpiredJwtException) {
+            logger.error("JWT token is expired: {}", e.message)
+        } catch (e: UnsupportedJwtException) {
+            logger.error("JWT token is unsupported: {}", e.message)
+        } catch (e: IllegalArgumentException) {
+            logger.error("JWT claims string is empty: {}", e.message)
         }
-
-        return false;
+        return false
     }
+
 }

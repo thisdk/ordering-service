@@ -4,7 +4,7 @@ import io.thisdk.github.ordering.bean.LoginReq
 import io.thisdk.github.ordering.bean.RestRequest
 import io.thisdk.github.ordering.bean.RestResponse
 import io.thisdk.github.ordering.bean.User
-import io.thisdk.github.ordering.security.jwt.JwtUtils
+import io.thisdk.github.ordering.jwt.JwtUtils
 import io.thisdk.github.ordering.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.AuthenticationManager

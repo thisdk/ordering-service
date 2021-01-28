@@ -1,25 +1,28 @@
-package io.thisdk.github.ordering.security.jwt;
+package io.thisdk.github.ordering.jwt
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.stereotype.Component;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import org.slf4j.LoggerFactory
+import org.springframework.security.core.AuthenticationException
+import org.springframework.security.web.AuthenticationEntryPoint
+import org.springframework.stereotype.Component
+import java.io.IOException
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 @Component
-public class AuthEntryPointJwt implements AuthenticationEntryPoint {
+class AuthEntryPointJwt : AuthenticationEntryPoint {
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJwt.class);
+    companion object {
+        private val logger = LoggerFactory.getLogger(AuthEntryPointJwt::class.java)
+    }
 
-    @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response,
-                         AuthenticationException authException) throws IOException {
-        logger.error("Unauthorized error: {}", authException.getMessage());
-        response.getWriter().write("{\"code\":-10086,\"data\":null,\"msg\":\"unAuthorization\"}");
+    @Throws(IOException::class)
+    override fun commence(
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+        authException: AuthenticationException
+    ) {
+        logger.error("Unauthorized error: {}", authException.message)
+        response.writer.write("{\"code\":-10086,\"data\":null,\"msg\":\"unAuthorization\"}")
     }
 
 }

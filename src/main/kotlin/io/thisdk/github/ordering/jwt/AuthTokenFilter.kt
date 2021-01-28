@@ -1,50 +1,52 @@
-package io.thisdk.github.ordering.security.jwt;
+package io.thisdk.github.ordering.jwt
 
-import io.thisdk.github.ordering.security.services.UserDetailsServiceImpl;
-import io.thisdk.github.ordering.utils.AuthUtils;
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.web.filter.OncePerRequestFilter;
+import io.thisdk.github.ordering.security.UserDetailsServiceImpl
+import io.thisdk.github.ordering.utils.AuthUtils.parseJwt
+import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
+import org.springframework.web.filter.OncePerRequestFilter
+import java.io.IOException
+import javax.servlet.FilterChain
+import javax.servlet.ServletException
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+class AuthTokenFilter : OncePerRequestFilter() {
 
-public class AuthTokenFilter extends OncePerRequestFilter {
-
-    private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
+    companion object {
+        private val loggerInstance = LoggerFactory.getLogger(AuthTokenFilter::class.java)
+    }
 
     @Autowired
-    private JwtUtils jwtUtils;
+    lateinit var jwtUtils: JwtUtils
 
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    lateinit var userDetailsService: UserDetailsServiceImpl
 
-    @Override
-    protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain)
-            throws ServletException, IOException {
+    @Throws(ServletException::class, IOException::class)
+    override fun doFilterInternal(
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+        filterChain: FilterChain
+    ) {
         try {
-            String jwt = AuthUtils.INSTANCE.parseJwt(request);
+            val jwt = parseJwt(request)
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-                String username = jwtUtils.getUserNameFromJwtToken(jwt);
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                val username = jwtUtils.getUserNameFromJwtToken(jwt)
+                val userDetails = userDetailsService.loadUserByUsername(username)
+                val authentication = UsernamePasswordAuthenticationToken(
+                    userDetails, null, userDetails.authorities
+                )
+                authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
+                SecurityContextHolder.getContext().authentication = authentication
             }
-        } catch (Exception e) {
-            logger.error("Cannot set user authentication: {}", e.getMessage());
+        } catch (e: Exception) {
+            loggerInstance.error("Cannot set user authentication: {}", e)
         }
-        filterChain.doFilter(request, response);
+        filterChain.doFilter(request, response)
     }
 
 

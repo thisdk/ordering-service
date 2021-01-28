@@ -5,7 +5,7 @@ import io.thisdk.github.ordering.bean.RestResponse
 import io.thisdk.github.ordering.bean.User
 import io.thisdk.github.ordering.exception.OrderingErrorInfoEnum
 import io.thisdk.github.ordering.exception.OrderingErrorInfoException
-import io.thisdk.github.ordering.security.jwt.JwtUtils
+import io.thisdk.github.ordering.jwt.JwtUtils
 import io.thisdk.github.ordering.service.UserService
 import io.thisdk.github.ordering.utils.AuthUtils
 import org.springframework.beans.factory.annotation.Autowired
