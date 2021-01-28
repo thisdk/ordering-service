@@ -23,26 +23,26 @@ class OrderService {
     @Autowired
     lateinit var foodDao: FoodDao
 
-    fun getOrderList(req: OpenIdReq): List<Order> {
+    fun queryOrderList(req: OpenIdReq): List<Order> {
         return orderDao.query(req.openid)
     }
 
-    fun deleteOrder(orderId: String) {
-        orderDao.delete(orderId)
+    fun deleteOrder(orderId: String): Boolean {
+        return orderDao.delete(orderId)
     }
 
-    fun takeMeal(code: String): Order {
+    fun obtainFood(code: String): Order {
         val calendar = Calendar.getInstance()
         calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH], 0, 0] = 0
         val order = orderDao.queryOrderByDateAndCode(calendar.time, code)
-            ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.TAKE_MEAL_NOT_ORDER)
-        if (order.status != 1) throw OrderingErrorInfoException(OrderingErrorInfoEnum.TAKE_MEAL_STATUS_ERROR)
+            ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.OBTAIN_NOT_ORDER)
+        if (order.status != 1) throw OrderingErrorInfoException(OrderingErrorInfoEnum.OBTAIN_STATUS_ERROR)
         order.status = 2
-        order.takeMealTime = Date()
-        return orderDao.update(order) ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.TAKE_MEAL_ERROR)
+        order.obtainTime = Date()
+        return orderDao.update(order) ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.OBTAIN_ERROR)
     }
 
-    fun inertOrder(cart: CartReq): Order {
+    fun createOrder(cart: CartReq): Order {
         val user = userDao.query(cart.openid)
             ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.USER_NOT_EXIST)
         val calendar = Calendar.getInstance()
@@ -53,7 +53,6 @@ class OrderService {
             openid = cart.openid,
             nickName = user.nickname ?: "",
             createTime = Date(),
-            status = 1,
             orderPrice = cart.total,
             amountPrice = cart.total,
             quantity = cart.quantity,
@@ -68,18 +67,14 @@ class OrderService {
                     it.quantity
                 )
             },
-            payTime = Date(),
-            payType = 0,
             phone = cart.phone,
             remark = cart.remark,
-            refundPrice = 0
+            refundPrice = 0,
+            status = 1,
         )
         order.orderId =
-            "10086${(Math.random() * 10086).toInt()}${System.currentTimeMillis()}${(Math.random() * 1008600).toInt()}"
-        order.payId =
-            "53866${(Math.random() * 53866).toInt()}${System.currentTimeMillis()}${(Math.random() * 5386600).toInt()}"
-        return orderDao.insert(order)
-            ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.INSERT_ORDER_ERROR)
+            "3080${(Math.random() * 3080).toInt()}${System.currentTimeMillis()}${(Math.random() * 3080).toInt()}"
+        return orderDao.insert(order) ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.INSERT_ORDER_ERROR)
     }
 
 }

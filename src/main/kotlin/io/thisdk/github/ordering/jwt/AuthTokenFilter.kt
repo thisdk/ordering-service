@@ -1,12 +1,13 @@
 package io.thisdk.github.ordering.jwt
 
 import io.thisdk.github.ordering.security.UserDetailsServiceImpl
-import io.thisdk.github.ordering.utils.AuthUtils.parseJwt
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
+import org.springframework.util.StringUtils
 import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException
 import javax.servlet.FilterChain
@@ -19,6 +20,9 @@ class AuthTokenFilter : OncePerRequestFilter() {
     companion object {
         private val loggerInstance = LoggerFactory.getLogger(AuthTokenFilter::class.java)
     }
+
+    @Value("\${token.jwt.header}")
+    lateinit var jwtHeader: String
 
     @Autowired
     lateinit var jwtUtils: JwtUtils
@@ -47,6 +51,13 @@ class AuthTokenFilter : OncePerRequestFilter() {
             loggerInstance.error("Cannot set user authentication: {}", e)
         }
         filterChain.doFilter(request, response)
+    }
+
+    private fun parseJwt(request: HttpServletRequest): String? {
+        val headerAuth = request.getHeader(jwtHeader)
+        return if (StringUtils.hasText(headerAuth)) {
+            headerAuth
+        } else null
     }
 
 

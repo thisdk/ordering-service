@@ -15,6 +15,7 @@ logging:
     root: info
 
 token:
-  cms:
-    jwtSecret: orderingSecretKey
-    jwtExpirationMs: 86400000
+  jwt:
+    header: Authorization
+    secret: thisdkOrderingSecretKey
+    expiration: 86400000

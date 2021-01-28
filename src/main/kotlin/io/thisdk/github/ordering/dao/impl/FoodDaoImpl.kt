@@ -19,9 +19,10 @@ class FoodDaoImpl : FoodDao {
         return mongo.save(food, "wechat_food")
     }
 
-    override fun delete(id: String) {
+    override fun delete(id: String): Boolean {
         val query = Query(Criteria.where("id").`is`(id))
-        mongo.remove(query, Food::class.java, "wechat_food")
+        val result = mongo.remove(query, Food::class.java, "wechat_food")
+        return result.deletedCount > 0
     }
 
     override fun query(): List<Food> {

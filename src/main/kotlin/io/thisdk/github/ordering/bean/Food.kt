@@ -2,6 +2,7 @@ package io.thisdk.github.ordering.bean
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
+import java.io.Serializable
 
 @Document(collection = "wechat_food")
 data class Food(
@@ -9,7 +10,7 @@ data class Food(
     val title: String,
     val origin: Int,
     val price: Int,
-) {
+) : Serializable {
 
     @Id
     lateinit var id: String

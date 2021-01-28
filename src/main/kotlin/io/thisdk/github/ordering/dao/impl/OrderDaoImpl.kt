@@ -30,9 +30,10 @@ class OrderDaoImpl : OrderDao {
         return mongo.save(order, "wechat_order")
     }
 
-    override fun delete(orderId: String) {
+    override fun delete(orderId: String): Boolean {
         val query = Query(Criteria.where("orderId").`is`(orderId))
-        mongo.remove(query, Order::class.java, "wechat_order")
+        val result = mongo.remove(query, Order::class.java, "wechat_order")
+        return result.deletedCount > 0
     }
 
     override fun update(order: Order): Order? {

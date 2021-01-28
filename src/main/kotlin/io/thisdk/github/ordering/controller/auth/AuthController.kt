@@ -42,11 +42,11 @@ class AuthController {
     }
 
     @RequestMapping("/register")
-    fun register(@RequestBody req: RestRequest<User>): RestResponse<String> {
+    fun register(@RequestBody req: RestRequest<User>): RestResponse<Unit> {
         val user = req.param
         user.password = password.encode(user.password)
         userService.insertUser(user)
-        return RestResponse("register success")
+        return RestResponse()
     }
 
 }

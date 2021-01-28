@@ -7,8 +7,8 @@ import io.thisdk.github.ordering.exception.OrderingErrorInfoEnum
 import io.thisdk.github.ordering.exception.OrderingErrorInfoException
 import io.thisdk.github.ordering.jwt.JwtUtils
 import io.thisdk.github.ordering.service.UserService
-import io.thisdk.github.ordering.utils.AuthUtils
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -23,6 +23,9 @@ class UserController {
     @Autowired
     lateinit var userService: UserService
 
+    @Value("\${token.jwt.header}")
+    lateinit var jwtHeader: String
+
     @Autowired
     lateinit var jwtUtils: JwtUtils
 
@@ -30,7 +33,7 @@ class UserController {
     fun login(@RequestBody req: RestRequest<Unit>): RestResponse<User> {
         val servletRequestAttributes = RequestContextHolder.getRequestAttributes() as ServletRequestAttributes
         val request = servletRequestAttributes.request
-        val token = AuthUtils.parseJwt(request) ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.ERROR)
+        val token = request.getHeader(jwtHeader) ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.ERROR)
         val username = jwtUtils.getUserNameFromJwtToken(token)
         return RestResponse(userService.queryByUserName(username))
     }

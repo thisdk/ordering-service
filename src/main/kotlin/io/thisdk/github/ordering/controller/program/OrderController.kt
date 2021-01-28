@@ -16,22 +16,22 @@ class OrderController {
 
     @RequestMapping("/query")
     fun query(@RequestBody req: RestRequest<OpenIdReq>): RestResponse<List<Order>> {
-        return RestResponse(data = orderService.getOrderList(req.param))
+        return RestResponse(orderService.queryOrderList(req.param))
     }
 
-    @RequestMapping("/insert")
-    fun insert(@RequestBody req: RestRequest<CartReq>): RestResponse<Order> {
-        return RestResponse(data = orderService.inertOrder(req.param))
+    @RequestMapping("/create")
+    fun create(@RequestBody req: RestRequest<CartReq>): RestResponse<Order> {
+        return RestResponse(orderService.createOrder(req.param))
     }
 
     @RequestMapping("/delete")
-    fun delete(@RequestBody req: RestRequest<OrderIdReq>): RestResponse<Unit> {
-        return RestResponse(data = orderService.deleteOrder(req.param.orderId))
+    fun delete(@RequestBody req: RestRequest<OrderIdReq>): RestResponse<Boolean> {
+        return RestResponse(orderService.deleteOrder(req.param.orderId))
     }
 
-    @RequestMapping("/takeMeal")
-    fun takeMeal(@RequestBody req: RestRequest<CodeReq>): RestResponse<Order> {
-        return RestResponse(data = orderService.takeMeal(req.param.code))
+    @RequestMapping("/obtainFood")
+    fun obtainFood(@RequestBody req: RestRequest<CodeReq>): RestResponse<Order> {
+        return RestResponse(orderService.obtainFood(req.param.code))
     }
 
 }

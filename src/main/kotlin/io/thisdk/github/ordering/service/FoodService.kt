@@ -14,23 +14,23 @@ class FoodService {
     @Autowired
     lateinit var foodDao: FoodDao
 
-    fun getFoodList(): List<Food> {
+    fun queryFoodList(): List<Food> {
         return foodDao.query()
     }
 
-    fun insertFood(food: Food): Food {
+    fun updateFood(food: Food): Food {
         return foodDao.insert(food)
             ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.INSERT_FOOD_ERROR)
     }
 
-    fun insertList(list: List<Food>) {
+    fun insertFoodList(list: List<Food>) {
         list.forEach {
             foodDao.insert(it)
         }
     }
 
-    fun deleteFood(idReq: IdReq) {
-        foodDao.delete(idReq.id)
+    fun deleteFood(idReq: IdReq): Boolean {
+        return foodDao.delete(idReq.id)
     }
 
 }

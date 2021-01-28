@@ -6,7 +6,7 @@ interface FoodDao {
 
     fun insert(food: Food): Food?
 
-    fun delete(id: String)
+    fun delete(id: String): Boolean
 
     fun query(): List<Food>
 

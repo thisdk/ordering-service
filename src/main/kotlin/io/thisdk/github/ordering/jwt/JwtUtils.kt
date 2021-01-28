@@ -16,18 +16,18 @@ class JwtUtils {
         private val logger = LoggerFactory.getLogger(JwtUtils::class.java)
     }
 
-    @Value("\${token.cms.jwtSecret}")
-    private val jwtSecret: String? = null
+    @Value("\${token.jwt.secret}")
+    lateinit var jwtSecret: String
 
-    @Value("\${token.cms.jwtExpirationMs}")
+    @Value("\${token.jwt.expiration}")
+    private val jwtExpiration = 0
 
-    private val jwtExpirationMs = 0
     fun generateJwtToken(authentication: Authentication): String {
         val userPrincipal: UserDetailsImpl = authentication.principal as UserDetailsImpl
         return Jwts.builder()
             .setSubject(userPrincipal.username)
             .setIssuedAt(Date())
-            .setExpiration(Date(Date().time + jwtExpirationMs))
+            .setExpiration(Date(Date().time + jwtExpiration))
             .signWith(SignatureAlgorithm.HS512, jwtSecret)
             .compact()
     }

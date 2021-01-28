@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class UserDetailsServiceImpl @Autowired constructor(val userService: UserService) : UserDetailsService {
+class UserDetailsServiceImpl : UserDetailsService {
+
+    @Autowired
+    lateinit var userService: UserService
 
     @Transactional
     @Throws(UsernameNotFoundException::class)

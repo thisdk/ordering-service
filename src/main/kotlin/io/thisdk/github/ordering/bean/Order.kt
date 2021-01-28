@@ -12,13 +12,12 @@ data class Order(
     val phone: String,
     val remark: String,
     val createTime: Date,
-    val payTime: Date,
+    // 0 未付款 1 已付款 2 已取餐 3 已取消
     var status: Int,
     val orderPrice: Int,
     val amountPrice: Int,
     val refundPrice: Int,
     val quantity: Int,
-    val payType: Int,
     val code: String,
     val list: List<OrderFood>
 ) {
@@ -28,8 +27,10 @@ data class Order(
     @Indexed(unique = true)
     lateinit var orderId: String
 
-    @Indexed(unique = true)
-    lateinit var payId: String
+    var payId: String? = null
 
-    var takeMealTime: Date? = null
+    var payTime: Date? = null
+
+    var obtainTime: Date? = null
+
 }

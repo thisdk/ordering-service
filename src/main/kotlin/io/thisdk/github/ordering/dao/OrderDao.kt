@@ -11,7 +11,7 @@ interface OrderDao {
 
     fun insert(order: Order): Order?
 
-    fun delete(orderId: String)
+    fun delete(orderId: String): Boolean
 
     fun update(order: Order): Order?
 
