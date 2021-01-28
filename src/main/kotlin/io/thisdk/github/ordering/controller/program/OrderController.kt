@@ -1,8 +1,10 @@
 package io.thisdk.github.ordering.controller.program
 
 import io.thisdk.github.ordering.bean.*
+import io.thisdk.github.ordering.redis.RedisConfig
 import io.thisdk.github.ordering.service.OrderService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -41,6 +43,7 @@ class OrderController {
         return RestResponse(orderService.queryTodayOrder())
     }
 
+    @Cacheable(cacheNames = [RedisConfig.REDIS_KEY_DATABASE], key = "'order-controller-query'")
     @RequestMapping("/queryAllOrder")
     fun queryAllOrder(@RequestBody req: RestRequest<Unit>): RestResponse<List<Order>> {
         return RestResponse(orderService.queryAllOrder())
