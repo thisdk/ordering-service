@@ -30,7 +30,7 @@ class UserController {
     lateinit var jwtUtils: JwtUtils
 
     @RequestMapping("/query")
-    fun login(@RequestBody req: RestRequest<Unit>): RestResponse<User> {
+    fun query(@RequestBody req: RestRequest<Unit>): RestResponse<User> {
         val servletRequestAttributes = RequestContextHolder.getRequestAttributes() as ServletRequestAttributes
         val request = servletRequestAttributes.request
         val token = request.getHeader(jwtHeader) ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.ERROR)
@@ -41,6 +41,11 @@ class UserController {
     @RequestMapping("/update")
     fun update(@RequestBody req: RestRequest<User>): RestResponse<User> {
         return RestResponse(userService.insertUser(req.param))
+    }
+
+    @RequestMapping("/queryMiniProgramUser")
+    fun queryMiniProgramUser(@RequestBody req: RestRequest<Unit>): RestResponse<List<User>> {
+        return RestResponse(userService.queryByMiniProgram())
     }
 
 }

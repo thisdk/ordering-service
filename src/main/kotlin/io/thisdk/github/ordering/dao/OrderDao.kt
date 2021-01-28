@@ -5,6 +5,8 @@ import java.util.*
 
 interface OrderDao {
 
+    fun query(): List<Order>
+
     fun query(openid: String): List<Order>
 
     fun queryOrderByDate(date: Date): List<Order>

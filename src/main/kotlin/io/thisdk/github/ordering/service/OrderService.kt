@@ -31,6 +31,16 @@ class OrderService {
         return orderDao.delete(orderId)
     }
 
+    fun queryTodayOrder(): List<Order> {
+        val calendar = Calendar.getInstance()
+        calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH], 0, 0] = 0
+        return orderDao.queryOrderByDate(calendar.time)
+    }
+
+    fun queryAllOrder(): List<Order> {
+        return orderDao.query()
+    }
+
     fun obtainFood(code: String): Order {
         val calendar = Calendar.getInstance()
         calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH], 0, 0] = 0
@@ -45,9 +55,7 @@ class OrderService {
     fun createOrder(cart: CartReq): Order {
         val user = userDao.query(cart.openid)
             ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.USER_NOT_EXIST)
-        val calendar = Calendar.getInstance()
-        calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH], 0, 0] = 0
-        val todayOrderList = orderDao.queryOrderByDate(calendar.time)
+        val todayOrderList = queryTodayOrder()
         val code = 1111 + ((Math.random() * 4).toInt() + 1) + (todayOrderList.size * 5)
         val order = Order(
             openid = cart.openid,

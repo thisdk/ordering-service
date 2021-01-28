@@ -22,6 +22,10 @@ class UserService {
         return userDao.query(username) ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.NOT_USER)
     }
 
+    fun queryByMiniProgram(): List<User> {
+        return userDao.queryByMiniProgram()
+    }
+
     fun insertUser(user: User): User {
         return userDao.insert(user) ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.CREATE_USER_ERROR)
     }

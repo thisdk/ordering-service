@@ -10,4 +10,6 @@ interface UserDao {
 
     fun delete(username: String): Boolean
 
+    fun queryByMiniProgram(): List<User>
+
 }

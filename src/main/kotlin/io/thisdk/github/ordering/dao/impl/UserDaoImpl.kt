@@ -29,5 +29,9 @@ class UserDaoImpl : UserDao {
         return result.deletedCount > 0
     }
 
+    override fun queryByMiniProgram(): List<User> {
+        val query = Query(Criteria.where("openid").exists(true))
+        return mongo.find(query, User::class.java, "user")
+    }
 
 }

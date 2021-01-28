@@ -34,4 +34,14 @@ class OrderController {
         return RestResponse(orderService.obtainFood(req.param.code))
     }
 
+    @RequestMapping("/queryTodayOrder")
+    fun queryTodayOrder(@RequestBody req: RestRequest<Unit>): RestResponse<List<Order>> {
+        return RestResponse(orderService.queryTodayOrder())
+    }
+
+    @RequestMapping("/queryAllOrder")
+    fun queryAllOrder(@RequestBody req: RestRequest<Unit>): RestResponse<List<Order>> {
+        return RestResponse(orderService.queryAllOrder())
+    }
+
 }
