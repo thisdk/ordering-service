@@ -43,7 +43,8 @@ class OrderService {
 
     fun obtainFood(code: String): Order {
         val calendar = Calendar.getInstance()
-        calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH], 0, 0] = 0
+        calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DATE], 0, 0] = 0
+        calendar.add(Calendar.HOUR_OF_DAY, -8)
         val order = orderDao.queryOrderByDateAndCode(calendar.time, code)
             ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.OBTAIN_NOT_ORDER)
         if (order.status != 1) throw OrderingErrorInfoException(OrderingErrorInfoEnum.OBTAIN_STATUS_ERROR)
