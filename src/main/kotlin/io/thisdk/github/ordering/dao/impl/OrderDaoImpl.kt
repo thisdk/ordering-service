@@ -2,6 +2,7 @@ package io.thisdk.github.ordering.dao.impl
 
 import io.thisdk.github.ordering.bean.Order
 import io.thisdk.github.ordering.dao.OrderDao
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.query.Criteria
@@ -11,6 +12,10 @@ import org.springframework.stereotype.Component
 
 @Component
 class OrderDaoImpl : OrderDao {
+
+    companion object {
+        private val loggerInstance = LoggerFactory.getLogger(OrderDaoImpl::class.java)
+    }
 
     @Autowired
     lateinit var mongo: MongoTemplate
@@ -25,6 +30,7 @@ class OrderDaoImpl : OrderDao {
     }
 
     override fun queryOrderByDate(time: Long): List<Order> {
+        loggerInstance.info("queryOrderByDate time : {}", time)
         val query = Query(Criteria.where("createTime").gt(time))
         return mongo.find(query, Order::class.java, "wechat_order")
     }
