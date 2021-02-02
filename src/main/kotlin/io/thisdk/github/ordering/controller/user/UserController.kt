@@ -25,10 +25,11 @@ class UserController {
     lateinit var jwtHeader: String
 
     @Autowired
-    lateinit var userService: UserService
+    lateinit var jwtUtils: JwtUtils
 
     @Autowired
-    lateinit var jwtUtils: JwtUtils
+    lateinit var userService: UserService
+
 
 
     @RequestMapping("/query")

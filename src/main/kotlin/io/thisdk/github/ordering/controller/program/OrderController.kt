@@ -1,26 +1,39 @@
 package io.thisdk.github.ordering.controller.program
 
 import io.thisdk.github.ordering.bean.*
+import io.thisdk.github.ordering.exception.OrderingErrorInfoEnum
+import io.thisdk.github.ordering.exception.OrderingErrorInfoException
+import io.thisdk.github.ordering.jwt.JwtUtils
 import io.thisdk.github.ordering.redis.RedisConfig
 import io.thisdk.github.ordering.service.OrderService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import javax.servlet.http.HttpServletRequest
 
 @RestController
 @CrossOrigin
 @RequestMapping("/program/order")
 class OrderController {
 
+    @Value("\${token.jwt.header}")
+    lateinit var jwtHeader: String
+
+    @Autowired
+    lateinit var jwtUtils: JwtUtils
+
     @Autowired
     lateinit var orderService: OrderService
 
-    @RequestMapping("/query")
-    fun query(@RequestBody req: RestRequest<OpenIdReq>): RestResponse<List<Order>> {
-        return RestResponse(orderService.queryOrderList(req.param))
+    @RequestMapping("/querySelfOrder")
+    fun querySelfOrder(@RequestBody req: RestRequest<Unit>, request: HttpServletRequest): RestResponse<List<Order>> {
+        val token = request.getHeader(jwtHeader) ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.ERROR)
+        val username = jwtUtils.getUserNameFromJwtToken(token)
+        return RestResponse(orderService.querySelfOrder(username))
     }
 
     @RequestMapping("/create")

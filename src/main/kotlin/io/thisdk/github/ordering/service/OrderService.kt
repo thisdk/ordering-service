@@ -23,8 +23,10 @@ class OrderService {
     @Autowired
     lateinit var foodDao: FoodDao
 
-    fun queryOrderList(req: OpenIdReq): List<Order> {
-        return orderDao.query(req.openid)
+    fun querySelfOrder(username: String): List<Order> {
+        val user = userDao.query(username)
+            ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.USER_NOT_EXIST)
+        return orderDao.querySelfOrder(user.id)
     }
 
     fun deleteOrder(orderId: String): Boolean {

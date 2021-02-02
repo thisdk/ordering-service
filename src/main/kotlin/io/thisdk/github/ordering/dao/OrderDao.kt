@@ -7,7 +7,7 @@ interface OrderDao {
 
     fun query(): List<Order>
 
-    fun query(openid: String): List<Order>
+    fun querySelfOrder(userId: String): List<Order>
 
     fun queryOrderByDate(date: Long): List<Order>
 

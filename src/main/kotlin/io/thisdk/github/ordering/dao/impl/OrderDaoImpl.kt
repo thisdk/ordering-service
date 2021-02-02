@@ -20,8 +20,8 @@ class OrderDaoImpl : OrderDao {
         return mongo.findAll(Order::class.java, "wechat_order")
     }
 
-    override fun query(openid: String): List<Order> {
-        val query = Query(Criteria.where("userId").`is`(openid))
+    override fun querySelfOrder(userId: String): List<Order> {
+        val query = Query(Criteria.where("userId").`is`(userId))
         return mongo.find(query, Order::class.java, "wechat_order")
     }
 
