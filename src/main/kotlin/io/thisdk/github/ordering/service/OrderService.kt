@@ -34,9 +34,7 @@ class OrderService {
     }
 
     fun queryTodayOrder(): List<Order> {
-        val calendar = Calendar.getInstance()
-        calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH], 0, 0] = 0
-        return orderDao.queryOrderByDate(calendar.time.time)
+        return orderDao.queryOrderByDate(getToday().time)
     }
 
     fun queryAllOrder(): List<Order> {
@@ -44,10 +42,7 @@ class OrderService {
     }
 
     fun obtainFood(code: String): Order {
-        val calendar = Calendar.getInstance()
-        calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DATE], 0, 0] = 0
-        calendar.add(Calendar.HOUR_OF_DAY, -8)
-        val order = orderDao.queryOrderByDateAndCode(calendar.time, code)
+        val order = orderDao.queryOrderByDateAndCode(getToday().time, code)
             ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.OBTAIN_NOT_ORDER)
         if (order.status != 1) throw OrderingErrorInfoException(OrderingErrorInfoEnum.OBTAIN_STATUS_ERROR)
         order.status = 2
@@ -88,6 +83,13 @@ class OrderService {
         order.phone = cart.phone
         order.remark = cart.remark
         return orderDao.insert(order) ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.INSERT_ORDER_ERROR)
+    }
+
+    private fun getToday(): Date {
+        val calendar = Calendar.getInstance()
+        calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH], 0, 0] = 0
+        calendar[Calendar.MILLISECOND] = 0
+        return calendar.time
     }
 
 }

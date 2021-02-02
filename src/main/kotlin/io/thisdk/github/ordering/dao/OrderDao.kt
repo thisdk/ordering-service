@@ -1,7 +1,6 @@
 package io.thisdk.github.ordering.dao
 
 import io.thisdk.github.ordering.bean.Order
-import java.util.*
 
 interface OrderDao {
 
@@ -9,7 +8,7 @@ interface OrderDao {
 
     fun querySelfOrder(userId: String): List<Order>
 
-    fun queryOrderByDate(date: Long): List<Order>
+    fun queryOrderByDate(time: Long): List<Order>
 
     fun insert(order: Order): Order?
 
@@ -17,6 +16,6 @@ interface OrderDao {
 
     fun update(order: Order): Order?
 
-    fun queryOrderByDateAndCode(date: Date, code: String): Order?
+    fun queryOrderByDateAndCode(time: Long, code: String): Order?
 
 }
