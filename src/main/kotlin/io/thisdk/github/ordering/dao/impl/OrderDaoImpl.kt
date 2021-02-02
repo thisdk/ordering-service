@@ -21,7 +21,7 @@ class OrderDaoImpl : OrderDao {
     }
 
     override fun query(openid: String): List<Order> {
-        val query = Query(Criteria.where("openid").`is`(openid))
+        val query = Query(Criteria.where("userId").`is`(openid))
         return mongo.find(query, Order::class.java, "wechat_order")
     }
 
