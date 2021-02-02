@@ -25,7 +25,7 @@ class OrderDaoImpl : OrderDao {
         return mongo.find(query, Order::class.java, "wechat_order")
     }
 
-    override fun queryOrderByDate(date: Date): List<Order> {
+    override fun queryOrderByDate(date: Long): List<Order> {
         val query = Query(Criteria.where("createTime").gte(date))
         return mongo.find(query, Order::class.java, "wechat_order")
     }

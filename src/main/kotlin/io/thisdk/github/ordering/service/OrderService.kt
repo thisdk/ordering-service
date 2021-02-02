@@ -34,7 +34,7 @@ class OrderService {
     fun queryTodayOrder(): List<Order> {
         val calendar = Calendar.getInstance()
         calendar[calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH], 0, 0] = 0
-        return orderDao.queryOrderByDate(calendar.time)
+        return orderDao.queryOrderByDate(calendar.time.time)
     }
 
     fun queryAllOrder(): List<Order> {
@@ -49,7 +49,8 @@ class OrderService {
             ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.OBTAIN_NOT_ORDER)
         if (order.status != 1) throw OrderingErrorInfoException(OrderingErrorInfoEnum.OBTAIN_STATUS_ERROR)
         order.status = 2
-        order.obtainTime = Date()
+        order.obtainTime = Date().time
+        order.updateTime = Date().time
         return orderDao.update(order) ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.OBTAIN_ERROR)
     }
 
@@ -58,31 +59,32 @@ class OrderService {
             ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.USER_NOT_EXIST)
         val todayOrderList = queryTodayOrder()
         val code = 1111 + (Math.random() * 4).toInt() + (todayOrderList.size * 5)
+        val now = Date().time
         val order = Order(
-            openid = cart.openid,
-            nickName = user.nickname ?: "",
-            createTime = Date(),
+            userId = user.id,
+            code = String.format("%04d", code),
+            status = 1,
+            createTime = now,
+            updateTime = now,
             orderPrice = cart.total,
             amountPrice = cart.total,
             quantity = cart.quantity,
-            code = String.format("%04d", code),
             list = cart.list.map {
-                val food = foodDao.query(it.foodId)!!
+                val food = foodDao.query(it.foodId)
+                    ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.PARAM_ERROR)
                 return@map OrderFood(
-                    it.foodId,
-                    food.title,
-                    food.thumb ?: "",
-                    food.price,
-                    it.quantity
+                    foodId = food.id,
+                    foodName = food.title,
+                    thumb = food.thumb ?: "",
+                    price = food.price,
+                    quantity = it.quantity
                 )
             },
-            phone = cart.phone,
-            remark = cart.remark,
-            refundPrice = 0,
-            status = 1,
+            refundPrice = 0
         )
-        order.orderId =
-            "3080${(Math.random() * 3080).toInt()}${System.currentTimeMillis()}${(Math.random() * 3080).toInt()}"
+        order.orderId = "3080${(Math.random() * 3080).toInt()}$now${(Math.random() * 3080).toInt()}"
+        order.phone = cart.phone
+        order.remark = cart.remark
         return orderDao.insert(order) ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.INSERT_ORDER_ERROR)
     }
 

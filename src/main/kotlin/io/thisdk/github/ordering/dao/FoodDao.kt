@@ -10,6 +10,6 @@ interface FoodDao {
 
     fun query(): List<Food>
 
-    fun query(id:String): Food?
+    fun query(id: String): Food?
 
 }

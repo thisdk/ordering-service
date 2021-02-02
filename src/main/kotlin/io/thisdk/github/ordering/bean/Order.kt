@@ -8,11 +8,9 @@ import java.util.*
 
 @Document(collection = "wechat_order")
 data class Order(
-    val openid: String,
-    val nickName: String,
-    val phone: String,
-    val remark: String,
-    val createTime: Date,
+    val userId: String,
+    val createTime: Long,
+    var updateTime: Long,
     // 0 未付款 1 已付款 2 已取餐 3 已取消
     var status: Int,
     val orderPrice: Int,
@@ -32,6 +30,10 @@ data class Order(
 
     var payTime: Date? = null
 
-    var obtainTime: Date? = null
+    var obtainTime: Long? = null
+
+    var phone: String? = null
+
+    var remark: String? = null
 
 }

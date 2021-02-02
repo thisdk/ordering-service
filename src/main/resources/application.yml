@@ -10,7 +10,7 @@ spring:
 
 logging:
   file:
-    name: /usr/local/tomcat/logs/ordering.log
+    name: /usr/local/tomcat/logs/ordering/ordering.log
   level:
     root: info
 

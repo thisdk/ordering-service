@@ -9,7 +9,7 @@ interface OrderDao {
 
     fun query(openid: String): List<Order>
 
-    fun queryOrderByDate(date: Date): List<Order>
+    fun queryOrderByDate(date: Long): List<Order>
 
     fun insert(order: Order): Order?
 

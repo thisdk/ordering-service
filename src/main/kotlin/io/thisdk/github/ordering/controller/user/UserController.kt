@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.context.request.RequestContextHolder
-import org.springframework.web.context.request.ServletRequestAttributes
+import javax.servlet.http.HttpServletRequest
 
 
 @RestController
@@ -22,19 +21,18 @@ import org.springframework.web.context.request.ServletRequestAttributes
 @RequestMapping("/user")
 class UserController {
 
-    @Autowired
-    lateinit var userService: UserService
-
     @Value("\${token.jwt.header}")
     lateinit var jwtHeader: String
 
     @Autowired
+    lateinit var userService: UserService
+
+    @Autowired
     lateinit var jwtUtils: JwtUtils
 
+
     @RequestMapping("/query")
-    fun query(@RequestBody req: RestRequest<Unit>): RestResponse<User> {
-        val servletRequestAttributes = RequestContextHolder.getRequestAttributes() as ServletRequestAttributes
-        val request = servletRequestAttributes.request
+    fun query(@RequestBody req: RestRequest<Unit>, request: HttpServletRequest): RestResponse<User> {
         val token = request.getHeader(jwtHeader) ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.ERROR)
         val username = jwtUtils.getUserNameFromJwtToken(token)
         return RestResponse(userService.queryByUserName(username))
