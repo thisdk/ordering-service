@@ -23,4 +23,10 @@ data class Food(
 
     var thumb: String? = null
 
+    var createor: String? = null
+
+    var createTime: Long? = null
+
+    var updateTime: Long? = null
+
 }
