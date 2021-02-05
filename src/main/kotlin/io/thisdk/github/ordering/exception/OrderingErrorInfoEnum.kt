@@ -23,6 +23,7 @@ enum class OrderingErrorInfoEnum(
     INSERT_ORDER_ERROR(-4000, "创建订单失败"),
     INSERT_FOOD_ERROR(-4001, "创建餐品失败"),
 
+    ROLE_NOT_EXIST(-5000, "Role名称有误"),
 
     LOGIN_ERROR(-1024, "验证用户名或密码失败"),
     ACCESS_DENIED_ERROR(-2048, "账号权限不允许访问"),

@@ -2,10 +2,12 @@ package io.thisdk.github.ordering.controller.user
 
 import io.thisdk.github.ordering.bean.RestRequest
 import io.thisdk.github.ordering.bean.RestResponse
+import io.thisdk.github.ordering.bean.RolesReq
 import io.thisdk.github.ordering.bean.User
 import io.thisdk.github.ordering.exception.OrderingErrorInfoEnum
 import io.thisdk.github.ordering.exception.OrderingErrorInfoException
 import io.thisdk.github.ordering.jwt.JwtUtils
+import io.thisdk.github.ordering.role.Role
 import io.thisdk.github.ordering.service.UserService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -55,6 +57,20 @@ class UserController {
         user.nickname = req.param.nickname
         user.avatar = req.param.avatar
         user.city = req.param.city
+        return RestResponse(userService.insertUser(user))
+    }
+
+
+    @RequestMapping("/changeRoles")
+    @PreAuthorize("hasRole('ADMIN')")
+    fun changeRoles(@RequestBody req: RestRequest<RolesReq>): RestResponse<User> {
+        req.param.roles.forEach {
+            if (it != Role.ROLE_ADMIN.name || it != Role.ROLE_USER.name) {
+                throw OrderingErrorInfoException(OrderingErrorInfoEnum.ROLE_NOT_EXIST)
+            }
+        }
+        val user = userService.queryByUserId(req.param.userId)
+        user.roles = req.param.roles
         return RestResponse(userService.insertUser(user))
     }
 
