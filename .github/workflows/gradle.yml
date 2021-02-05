@@ -50,4 +50,6 @@ jobs:
             sudo cp -f ordering.war /usr/local/tomcat/1/webapps
             sudo cp -f ordering.war /usr/local/tomcat/2/webapps
             sudo cp -f ordering.war /usr/local/tomcat/3/webapps
+            sudo cp -f ordering.war /usr/local/tomcat/4/webapps
+            rm -f ordering.war
             exit
