@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.util.*
+import javax.servlet.http.HttpServletRequest
 
 @RestController
 @CrossOrigin
@@ -35,12 +37,18 @@ class AuthController {
     lateinit var jwtUtils: JwtUtils
 
     @RequestMapping("/login")
-    fun login(@RequestBody req: RestRequest<LoginReq>): RestResponse<String> {
+    fun login(@RequestBody req: RestRequest<LoginReq>, request: HttpServletRequest): RestResponse<String> {
         val authentication: Authentication = authenticationManager.authenticate(
             UsernamePasswordAuthenticationToken(req.param.username, req.param.password)
         )
         SecurityContextHolder.getContext().authentication = authentication
-        return RestResponse(jwtUtils.generateJwtToken(authentication))
+        val token = jwtUtils.generateJwtToken(authentication)
+        val username = jwtUtils.getUserNameFromJwtToken(token)
+        userService.queryByUserName(username).apply {
+            lastLoginTime = Date().time
+            userService.insertUser(this)
+        }
+        return RestResponse(token)
     }
 
     @RequestMapping("/register")

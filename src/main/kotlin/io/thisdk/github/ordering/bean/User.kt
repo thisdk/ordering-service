@@ -15,4 +15,5 @@ data class User(
     var nickname: String? = null
     var avatar: String? = null
     var city: String? = null
+    var lastLoginTime: Long? = null
 }
