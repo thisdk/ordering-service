@@ -48,3 +48,4 @@ jobs:
             sleep 5s && cd /home/ubuntu/deploy
             curl -O https://thisdk.coding.net/p/ordering-service/d/ordering-deploy/git/raw/master/ordering.war
             sudo mv ordering.war /usr/local/tomcat/webapps -f
+            exit
