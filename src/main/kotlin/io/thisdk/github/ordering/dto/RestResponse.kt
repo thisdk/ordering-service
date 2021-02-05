@@ -1,4 +1,4 @@
-package io.thisdk.github.ordering.bean
+package io.thisdk.github.ordering.dto
 
 import io.thisdk.github.ordering.exception.ErrorInfoInf
 import java.io.Serializable

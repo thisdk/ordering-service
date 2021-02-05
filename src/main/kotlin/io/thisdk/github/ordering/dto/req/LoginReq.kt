@@ -1,4 +1,4 @@
-package io.thisdk.github.ordering.bean
+package io.thisdk.github.ordering.dto.req
 
 data class LoginReq(
     val username: String,

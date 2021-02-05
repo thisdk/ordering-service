@@ -1,5 +1,6 @@
 package io.thisdk.github.ordering.bean
 
+import io.thisdk.github.ordering.dto.resp.OrderFoodResp
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
@@ -18,7 +19,7 @@ data class Order(
     val refundPrice: Int,
     val quantity: Int,
     val code: String,
-    val list: List<OrderFood>
+    val list: List<OrderFoodResp>
 ) : Serializable {
     @Id
     lateinit var id: String

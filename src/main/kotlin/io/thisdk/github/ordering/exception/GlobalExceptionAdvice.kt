@@ -1,6 +1,6 @@
 package io.thisdk.github.ordering.exception
 
-import io.thisdk.github.ordering.bean.RestResponse
+import io.thisdk.github.ordering.dto.RestResponse
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.InternalAuthenticationServiceException

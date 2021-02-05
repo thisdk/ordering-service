@@ -1,8 +1,8 @@
 package io.thisdk.github.ordering.controller.user
 
-import io.thisdk.github.ordering.bean.RestRequest
-import io.thisdk.github.ordering.bean.RestResponse
-import io.thisdk.github.ordering.bean.RolesReq
+import io.thisdk.github.ordering.dto.RestRequest
+import io.thisdk.github.ordering.dto.RestResponse
+import io.thisdk.github.ordering.dto.req.RolesReq
 import io.thisdk.github.ordering.bean.User
 import io.thisdk.github.ordering.exception.OrderingErrorInfoEnum
 import io.thisdk.github.ordering.exception.OrderingErrorInfoException
@@ -65,7 +65,7 @@ class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     fun changeRoles(@RequestBody req: RestRequest<RolesReq>): RestResponse<User> {
         req.param.roles.forEach {
-            if (it != Role.ROLE_ADMIN.name || it != Role.ROLE_USER.name) {
+            if (!(it == Role.ROLE_ADMIN.name || it == Role.ROLE_USER.name)) {
                 throw OrderingErrorInfoException(OrderingErrorInfoEnum.ROLE_NOT_EXIST)
             }
         }

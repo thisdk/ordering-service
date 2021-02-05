@@ -1,7 +1,7 @@
 package io.thisdk.github.ordering.jwt
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import io.thisdk.github.ordering.bean.RestResponse
+import io.thisdk.github.ordering.dto.RestResponse
 import io.thisdk.github.ordering.exception.OrderingErrorInfoEnum
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired

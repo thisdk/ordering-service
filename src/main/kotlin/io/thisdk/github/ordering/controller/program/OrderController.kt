@@ -1,6 +1,11 @@
 package io.thisdk.github.ordering.controller.program
 
 import io.thisdk.github.ordering.bean.*
+import io.thisdk.github.ordering.dto.RestRequest
+import io.thisdk.github.ordering.dto.RestResponse
+import io.thisdk.github.ordering.dto.req.CartReq
+import io.thisdk.github.ordering.dto.req.CodeReq
+import io.thisdk.github.ordering.dto.req.OrderIdReq
 import io.thisdk.github.ordering.exception.OrderingErrorInfoEnum
 import io.thisdk.github.ordering.exception.OrderingErrorInfoException
 import io.thisdk.github.ordering.jwt.JwtUtils
@@ -35,13 +40,14 @@ class OrderController {
     @Autowired
     lateinit var orderService: OrderService
 
+    @Cacheable(cacheNames = [RedisConfig.REDIS_KEY_DATABASE], key = "'order-controller-query-today'")
     @RequestMapping("/queryTodayOrder")
     @PreAuthorize("hasRole('ADMIN')")
     fun queryTodayOrder(@RequestBody req: RestRequest<Unit>): RestResponse<List<Order>> {
         return RestResponse(orderService.queryTodayOrder())
     }
 
-    @Cacheable(cacheNames = [RedisConfig.REDIS_KEY_DATABASE], key = "'order-controller-query'")
+    @Cacheable(cacheNames = [RedisConfig.REDIS_KEY_DATABASE], key = "'order-controller-query-all'")
     @RequestMapping("/queryAllOrder")
     @PreAuthorize("hasRole('ADMIN')")
     fun queryAllOrder(@RequestBody req: RestRequest<Unit>): RestResponse<List<Order>> {

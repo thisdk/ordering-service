@@ -1,8 +1,8 @@
 package io.thisdk.github.ordering.controller.auth
 
-import io.thisdk.github.ordering.bean.LoginReq
-import io.thisdk.github.ordering.bean.RestRequest
-import io.thisdk.github.ordering.bean.RestResponse
+import io.thisdk.github.ordering.dto.req.LoginReq
+import io.thisdk.github.ordering.dto.RestRequest
+import io.thisdk.github.ordering.dto.RestResponse
 import io.thisdk.github.ordering.bean.User
 import io.thisdk.github.ordering.exception.OrderingErrorInfoEnum
 import io.thisdk.github.ordering.exception.OrderingErrorInfoException

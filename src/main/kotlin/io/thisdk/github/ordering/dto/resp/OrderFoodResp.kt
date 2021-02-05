@@ -1,8 +1,8 @@
-package io.thisdk.github.ordering.bean
+package io.thisdk.github.ordering.dto.resp
 
 import java.io.Serializable
 
-data class OrderFood(
+data class OrderFoodResp(
     val foodId: String,
     val foodName: String,
     val thumb: String,

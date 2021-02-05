@@ -1,7 +1,7 @@
 package io.thisdk.github.ordering.service
 
 import io.thisdk.github.ordering.bean.Food
-import io.thisdk.github.ordering.bean.IdReq
+import io.thisdk.github.ordering.dto.req.IdReq
 import io.thisdk.github.ordering.dao.FoodDao
 import io.thisdk.github.ordering.dao.UserDao
 import io.thisdk.github.ordering.exception.OrderingErrorInfoEnum

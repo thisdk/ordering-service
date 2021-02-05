@@ -1,4 +1,4 @@
-package io.thisdk.github.ordering.bean
+package io.thisdk.github.ordering.dto
 
 data class RestRequest<T>(
     val param: T,

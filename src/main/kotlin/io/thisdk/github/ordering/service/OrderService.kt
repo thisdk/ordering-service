@@ -4,6 +4,8 @@ import io.thisdk.github.ordering.bean.*
 import io.thisdk.github.ordering.dao.FoodDao
 import io.thisdk.github.ordering.dao.OrderDao
 import io.thisdk.github.ordering.dao.UserDao
+import io.thisdk.github.ordering.dto.req.CartReq
+import io.thisdk.github.ordering.dto.resp.OrderFoodResp
 import io.thisdk.github.ordering.exception.OrderingErrorInfoEnum
 import io.thisdk.github.ordering.exception.OrderingErrorInfoException
 import org.springframework.beans.factory.annotation.Autowired
@@ -69,7 +71,7 @@ class OrderService {
             list = cart.list.map {
                 val food = foodDao.query(it.foodId)
                     ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.PARAM_ERROR)
-                return@map OrderFood(
+                return@map OrderFoodResp(
                     foodId = food.id,
                     foodName = food.title,
                     thumb = food.thumb ?: "",

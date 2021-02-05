@@ -1,9 +1,9 @@
 package io.thisdk.github.ordering.controller.program
 
 import io.thisdk.github.ordering.bean.Food
-import io.thisdk.github.ordering.bean.IdReq
-import io.thisdk.github.ordering.bean.RestRequest
-import io.thisdk.github.ordering.bean.RestResponse
+import io.thisdk.github.ordering.dto.req.IdReq
+import io.thisdk.github.ordering.dto.RestRequest
+import io.thisdk.github.ordering.dto.RestResponse
 import io.thisdk.github.ordering.exception.OrderingErrorInfoEnum
 import io.thisdk.github.ordering.exception.OrderingErrorInfoException
 import io.thisdk.github.ordering.jwt.JwtUtils
