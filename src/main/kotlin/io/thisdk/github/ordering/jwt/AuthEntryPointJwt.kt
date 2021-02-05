@@ -1,6 +1,10 @@
 package io.thisdk.github.ordering.jwt
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import io.thisdk.github.ordering.bean.RestResponse
+import io.thisdk.github.ordering.exception.OrderingErrorInfoEnum
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.stereotype.Component
@@ -15,6 +19,9 @@ class AuthEntryPointJwt : AuthenticationEntryPoint {
         private val logger = LoggerFactory.getLogger(AuthEntryPointJwt::class.java)
     }
 
+    @Autowired
+    lateinit var mapper: ObjectMapper
+
     @Throws(IOException::class)
     override fun commence(
         request: HttpServletRequest,
@@ -22,7 +29,7 @@ class AuthEntryPointJwt : AuthenticationEntryPoint {
         authException: AuthenticationException
     ) {
         logger.error("Unauthorized error: {}", authException.message)
-        response.writer.write("{\"code\":-10086,\"data\":null,\"msg\":\"unAuthorization\"}")
+        response.writer.write(mapper.writeValueAsString(RestResponse<Unit>(OrderingErrorInfoEnum.AUTH_ERROR)))
     }
 
 }

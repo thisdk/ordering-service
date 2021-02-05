@@ -30,7 +30,7 @@ class FoodService {
     }
 
     fun insertFoodList(username: String, list: List<Food>) {
-        val user = userDao.query(username)
+        val user = userDao.queryByUsername(username)
             ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.USER_NOT_EXIST)
         val now = Date().time
         list.forEach {

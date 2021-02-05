@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component
 class OrderDaoImpl : OrderDao {
 
     companion object {
-        private val loggerInstance = LoggerFactory.getLogger(OrderDaoImpl::class.java)
+        private val logger = LoggerFactory.getLogger(OrderDaoImpl::class.java)
     }
 
     @Autowired
@@ -30,7 +30,7 @@ class OrderDaoImpl : OrderDao {
     }
 
     override fun queryOrderByDate(time: Long): List<Order> {
-        loggerInstance.info("query today order : {}", time)
+        logger.info("query today order : {}", time)
         val query = Query(Criteria.where("createTime").gte(time))
         return mongo.find(query, Order::class.java, "wechat_order")
     }

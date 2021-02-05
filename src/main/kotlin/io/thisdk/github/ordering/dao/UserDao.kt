@@ -6,10 +6,14 @@ interface UserDao {
 
     fun insert(user: User): User?
 
-    fun query(username: String): User?
+    fun queryByUsername(username: String): User?
 
-    fun delete(username: String): Boolean
+    fun queryByUserId(id: String): User?
 
-    fun queryByMiniProgram(): List<User>
+    fun deleteByUsername(username: String): Boolean
+
+    fun deleteByUserId(id: String): Boolean
+
+    fun queryAllMiniProgramUser(): List<User>
 
 }

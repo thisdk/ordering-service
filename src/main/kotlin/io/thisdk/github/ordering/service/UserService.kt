@@ -13,17 +13,27 @@ class UserService {
     @Autowired
     lateinit var userDao: UserDao
 
+    fun queryByUserId(id: String): User {
+        return userDao.queryByUserId(id) ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.USER_NOT_EXIST)
+    }
+
     fun hasUserByUserName(username: String): Boolean {
-        queryByUserName(username)
+        try {
+            queryByUserName(username)
+        } catch (exception: OrderingErrorInfoException) {
+            exception.printStackTrace()
+            return false
+        }
         return true
     }
 
     fun queryByUserName(username: String): User {
-        return userDao.query(username) ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.NOT_USER)
+        return userDao.queryByUsername(username)
+            ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.USER_NOT_EXIST)
     }
 
-    fun queryByMiniProgram(): List<User> {
-        return userDao.queryByMiniProgram()
+    fun queryAllMiniProgramUser(): List<User> {
+        return userDao.queryAllMiniProgramUser()
     }
 
     fun insertUser(user: User): User {
@@ -31,7 +41,7 @@ class UserService {
     }
 
     fun deleteByUserName(username: String): Boolean {
-        return userDao.delete(username)
+        return userDao.deleteByUsername(username)
     }
 
 }

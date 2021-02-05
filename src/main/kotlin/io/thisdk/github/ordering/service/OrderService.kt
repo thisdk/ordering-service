@@ -24,7 +24,7 @@ class OrderService {
     lateinit var foodDao: FoodDao
 
     fun querySelfOrder(username: String): List<Order> {
-        val user = userDao.query(username)
+        val user = userDao.queryByUsername(username)
             ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.USER_NOT_EXIST)
         return orderDao.querySelfOrder(user.id)
     }
@@ -52,7 +52,7 @@ class OrderService {
     }
 
     fun createOrder(cart: CartReq): Order {
-        val user = userDao.query(cart.openid)
+        val user = userDao.queryByUsername(cart.openid)
             ?: throw OrderingErrorInfoException(OrderingErrorInfoEnum.USER_NOT_EXIST)
         val todayOrderList = queryTodayOrder()
         val code = 1111 + (Math.random() * 4).toInt() + (todayOrderList.size * 5)

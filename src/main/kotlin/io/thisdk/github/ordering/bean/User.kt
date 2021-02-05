@@ -16,4 +16,5 @@ data class User(
     var avatar: String? = null
     var city: String? = null
     var lastLoginTime: Long? = null
+    var roles: HashSet<String>? = null
 }

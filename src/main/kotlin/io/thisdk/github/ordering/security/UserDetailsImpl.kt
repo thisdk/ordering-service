@@ -1,21 +1,22 @@
 package io.thisdk.github.ordering.security
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import io.thisdk.github.ordering.bean.User
 import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
-import java.util.*
 
-class UserDetailsImpl(private val username: String, @field:JsonIgnore private val password: String) : UserDetails {
-
-    private val authorities: Collection<GrantedAuthority> = ArrayList()
-
-    override fun getPassword(): String {
-        return password
-    }
+class UserDetailsImpl(
+    private val username: String,
+    private val password: String,
+    private val authorities: Collection<GrantedAuthority>
+) : UserDetails {
 
     override fun getUsername(): String {
         return username
+    }
+
+    override fun getPassword(): String {
+        return password
     }
 
     override fun getAuthorities(): Collection<GrantedAuthority> {
@@ -38,10 +39,29 @@ class UserDetailsImpl(private val username: String, @field:JsonIgnore private va
         return true
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || javaClass != other.javaClass) return false
+        val user = other as UserDetailsImpl
+        return username == user.username
+    }
+
+    override fun hashCode(): Int {
+        var result = username.hashCode()
+        result = 31 * result + password.hashCode()
+        return result
+    }
+
     companion object {
+
         @JvmStatic
         fun build(user: User): UserDetailsImpl {
-            return UserDetailsImpl(user.username, user.password)
+            return UserDetailsImpl(
+                user.username,
+                user.password,
+                (user.roles ?: HashSet()).map { SimpleGrantedAuthority(it) }.toList()
+            )
         }
+
     }
 }

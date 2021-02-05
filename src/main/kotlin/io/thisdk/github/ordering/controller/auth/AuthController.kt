@@ -4,8 +4,12 @@ import io.thisdk.github.ordering.bean.LoginReq
 import io.thisdk.github.ordering.bean.RestRequest
 import io.thisdk.github.ordering.bean.RestResponse
 import io.thisdk.github.ordering.bean.User
+import io.thisdk.github.ordering.exception.OrderingErrorInfoEnum
+import io.thisdk.github.ordering.exception.OrderingErrorInfoException
 import io.thisdk.github.ordering.jwt.JwtUtils
+import io.thisdk.github.ordering.role.Role
 import io.thisdk.github.ordering.service.UserService
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -18,11 +22,16 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
 import javax.servlet.http.HttpServletRequest
+import kotlin.collections.HashSet
 
 @RestController
 @CrossOrigin
 @RequestMapping("/auth")
 class AuthController {
+
+    companion object {
+        private val logger = LoggerFactory.getLogger(AuthController::class.java)
+    }
 
     @Autowired
     lateinit var authenticationManager: AuthenticationManager
@@ -48,14 +57,20 @@ class AuthController {
             lastLoginTime = Date().time
             userService.insertUser(this)
         }
+        logger.info("user {} login success !", username)
         return RestResponse(token)
     }
 
     @RequestMapping("/register")
     fun register(@RequestBody req: RestRequest<User>): RestResponse<Unit> {
         val user = req.param
+        if (userService.hasUserByUserName(user.username)) {
+            throw OrderingErrorInfoException(OrderingErrorInfoEnum.USER_EXIST)
+        }
         user.password = password.encode(user.password)
+        user.roles = HashSet(listOf(Role.ROLE_USER.name))
         userService.insertUser(user)
+        logger.info("user {} register success !", user.username)
         return RestResponse()
     }
 

@@ -18,18 +18,29 @@ class UserDaoImpl : UserDao {
         return mongo.save(user, "user")
     }
 
-    override fun query(username: String): User? {
+    override fun queryByUsername(username: String): User? {
         val query = Query(Criteria.where("username").`is`(username))
         return mongo.findOne(query, User::class.java, "user")
     }
 
-    override fun delete(username: String): Boolean {
+    override fun queryByUserId(id: String): User? {
+        val query = Query(Criteria.where("id").`is`(id))
+        return mongo.findOne(query, User::class.java, "user")
+    }
+
+    override fun deleteByUsername(username: String): Boolean {
         val query = Query(Criteria.where("username").`is`(username))
         val result = mongo.remove(query, User::class.java, "user")
         return result.deletedCount > 0
     }
 
-    override fun queryByMiniProgram(): List<User> {
+    override fun deleteByUserId(id: String): Boolean {
+        val query = Query(Criteria.where("id").`is`(id))
+        val result = mongo.remove(query, User::class.java, "user")
+        return result.deletedCount > 0
+    }
+
+    override fun queryAllMiniProgramUser(): List<User> {
         val query = Query(Criteria.where("openid").ne(null))
         return mongo.find(query, User::class.java, "user")
     }
