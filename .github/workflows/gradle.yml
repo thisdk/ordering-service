@@ -35,7 +35,7 @@ jobs:
       - name: Upload to Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ordering
+          name: ordering-service
           path: ordering.war
       - name: SSH to Host Deploy
         uses: appleboy/ssh-action@master

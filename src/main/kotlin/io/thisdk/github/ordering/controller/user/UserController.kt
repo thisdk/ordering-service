@@ -1,9 +1,9 @@
 package io.thisdk.github.ordering.controller.user
 
+import io.thisdk.github.ordering.bean.User
 import io.thisdk.github.ordering.dto.RestRequest
 import io.thisdk.github.ordering.dto.RestResponse
 import io.thisdk.github.ordering.dto.req.RolesReq
-import io.thisdk.github.ordering.bean.User
 import io.thisdk.github.ordering.exception.OrderingErrorInfoEnum
 import io.thisdk.github.ordering.exception.OrderingErrorInfoException
 import io.thisdk.github.ordering.jwt.JwtUtils
@@ -59,7 +59,6 @@ class UserController {
         user.city = req.param.city
         return RestResponse(userService.insertUser(user))
     }
-
 
     @RequestMapping("/changeRoles")
     @PreAuthorize("hasRole('ADMIN')")
